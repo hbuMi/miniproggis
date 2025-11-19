@@ -1,5 +1,6 @@
 *** Settings ***
 Library  SeleniumLibrary
+Library  ../repositories/reference_repository.py
 
 *** Variables ***
 ${SERVER}     localhost:5001
@@ -26,26 +27,25 @@ Open And Configure Browser
     END
     Open Browser  browser=${BROWSER}  options=${options}
 
-Reset References
-    Go To  ${RESET_URL}
-
-Home Page Should Be Open
-    Location Should Be  ${HOME_URL}
-    Page Should Contain Title  BibTextittäjä 3000
-
-Create New Reference Page Should Be Open
-    Location Should Be  ${HOME_URL}/new_reference
-    Page Should Contain Title  Add Reference
-
-Show References Page Should Be Open
-    Location Should Be  ${HOME_URL}/show_references
-    Page Should Contain Title  Reference
-
 Go To Home Page
     Go To  ${HOME_URL}
 
 Go To Create New Reference Page
     Go To  ${HOME_URL}/new_reference
 
-Go To Show References Page
-    Go To  ${HOME_URL}/show_references
+Reset References
+    Go To  ${RESET_URL}
+
+Reset References And Go To Home Page
+    Reset References
+    Go To Home Page
+
+Home Page Should Be Open
+    Location Should Be  ${HOME_URL}
+    Title Should Be  BibTextittäjä 3000
+
+Create New Reference Page Should Be Open
+    Location Should Be  ${HOME_URL}/new_reference
+    Title Should Be  Lisää Lähde
+
+
