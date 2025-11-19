@@ -20,5 +20,6 @@ build-backend = "poetry.core.masonry.api"
 
 [dependency-groups]
 dev = [
-    "robotframework (>=7.3.2,<8.0.0)"
+    "robotframework (>=7.3.2,<8.0.0)",
+    "robotframework-seleniumlibrary (>=6.8.0,<7.0.0)"
 ]
