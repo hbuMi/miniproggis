@@ -1,6 +1,6 @@
 from flask import Flask, redirect, request, flash
 from util import validate_book
-from .repositories.reference_repository import create_book
+from repositories.reference_repository import create_book
 
 app = Flask(__name__)
 
