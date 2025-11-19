@@ -1,11 +1,21 @@
 from flask import redirect, request, render_template
 from util import validate_book
 from repositories.reference_repository import create_book
-from config import app, test_env
+from config import app, test_env, db
+from sqlalchemy import text
+
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    sql = text('SELECT * FROM sources')
+    query = db.session.execute(sql)
+    items = query.fetchall()
+    references = []
+    for item in items:
+        reference = {'id': item[0], 'name': item[1]}
+        references.append(reference)
+
+    return render_template("index.html", references=references)
 
 @app.route("/new_reference")
 def new():
