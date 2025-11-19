@@ -11,3 +11,4 @@ htmlcov/
 log.html
 output.xml
 report.xml
+.DS_Store

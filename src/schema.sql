@@ -1,5 +1,8 @@
-CREATE TABLE todos (
+CREATE TABLE sources (
   id SERIAL PRIMARY KEY, 
-  content TEXT NOT NULL,
-  done BOOLEAN DEFAULT FALSE
+  title TEXT,
+  author TEXT,
+  year TEXT,
+  publisher TEXT,
+  note TEXT 
 )
