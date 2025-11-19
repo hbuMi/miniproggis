@@ -6,8 +6,18 @@
 </head>
 
 <body>
-  <h1>ibTextittäjä 3000</h1>  
+  <h1>BibTextittäjä 3000</h1>
+  
+  <p>
+    <a href="/new_reference">Lisää Lähde</a>
+  </p>
+
+  <h2>Luodut lähteet</h2>
+  <ul>
+  {% for reference in references %}
+  <li><a href="/reference/{{ reference.id }}">{{ references.name }}</a></li>
+  {% endfor %}
+  </ul>
 
 </body>
-
 </html>

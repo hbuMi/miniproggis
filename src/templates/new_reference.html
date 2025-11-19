@@ -2,11 +2,42 @@
 <html>
 
 <head>
-  <title>Add Reference</title>
+  <title>Lisää lähde</title>
 </head>
 
 <body>
-  <h1>Add Reference</h1>  
+  <h1>Lisää Lähde</h1>  
+
+  <form action="create_reference" method="POST">
+    <p>
+      nimi: <input type="text" name="name"/>
+    </p>
+    <p>
+      kirjoittaja: <input type="text" name="author"/>
+    </p>
+    <p>
+      editoija: <input type="text" name="editor"/>
+    </p>
+    <p>
+      kirjan nimi: <input type="text" name="title"/>
+    </p>
+    <p>
+      julkaisija: <input type="text" name="publisher"/>
+    </p>
+    <p>
+      julkaisu vuosi: <input type="text" name="year"/>
+    </p>
+    <p>
+      muistiipano: <input type="text" name="note"/>
+    </p>
+
+    <input type="submit" value="Lisää Lähde"/>
+
+  </from>
+
+  <p>
+    <a href="/">Etusivulle</a>
+  </p>
 
 </body>
 

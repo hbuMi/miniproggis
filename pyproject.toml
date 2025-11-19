@@ -8,7 +8,7 @@ authors = [
 readme = "README.md"
 requires-python = "^3.12"
 dependencies = [
-    "flask (>=3.1.2,<4.0.0)"
+    "flask (>=3.1.2,<4.0.0)",
 ]
 
 [tool.poetry]
@@ -17,3 +17,9 @@ package-mode = false
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "robotframework (>=7.3.2,<8.0.0)",
+    "robotframework-seleniumlibrary (>=6.8.0,<7.0.0)"
+]

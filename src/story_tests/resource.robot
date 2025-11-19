@@ -26,5 +26,26 @@ Open And Configure Browser
     END
     Open Browser  browser=${BROWSER}  options=${options}
 
-Reset Todos
+Reset References
     Go To  ${RESET_URL}
+
+Home Page Should Be Open
+    Location Should Be  ${HOME_URL}
+    Page Should Contain Title  BibTextittäjä 3000
+
+Create New Reference Page Should Be Open
+    Location Should Be  ${HOME_URL}/new_reference
+    Page Should Contain Title  Add Reference
+
+Show References Page Should Be Open
+    Location Should Be  ${HOME_URL}/show_references
+    Page Should Contain Title  Reference
+
+Go To Home Page
+    Go To  ${HOME_URL}
+
+Go To Create New Reference Page
+    Go To  ${HOME_URL}/new_reference
+
+Go To Show References Page
+    Go To  ${HOME_URL}/show_references
