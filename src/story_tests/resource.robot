@@ -3,7 +3,7 @@ Library  SeleniumLibrary
 Library  ../repositories/reference_repository.py
 
 *** Variables ***
-${SERVER}     localhost:5001
+${SERVER}     localhost:5001/
 ${DELAY}      0.5 seconds
 ${HOME_URL}   http://${SERVER}
 ${RESET_URL}  http://${SERVER}/reset_db
