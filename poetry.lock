@@ -194,6 +194,18 @@ files = [
 ]
 
 [[package]]
+name = "robotframework"
+version = "7.3.2"
+description = "Generic automation framework for acceptance testing and robotic process automation (RPA)"
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "robotframework-7.3.2-py3-none-any.whl", hash = "sha256:14ef2afa905285cc073df6ce06d0cd3af4a113df6f815532718079e00c98cca4"},
+    {file = "robotframework-7.3.2.tar.gz", hash = "sha256:3bb3e299831ecb1664f3d5082f6ff9f08ba82d61a745bef2227328ef3049e93a"},
+]
+
+[[package]]
 name = "werkzeug"
 version = "3.1.3"
 description = "The comprehensive WSGI web application library."
@@ -214,4 +226,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "12042e77c74d4a4e0a328f0ab551b2ed667f679e37046dfc8764e6a15e57a693"
+content-hash = "12640fdc3586423b5990398554dd19fdaec8dc475a326ca763ab70df9879b995"
