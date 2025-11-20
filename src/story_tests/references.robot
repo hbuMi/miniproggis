@@ -17,6 +17,7 @@ User Can Add Book Reference
     Input Text  year        2008
     Input Text  note        Testikommentti
     Click Button  Lisää Lähde
+    Wait Until Location Is  ${HOME_URL}/
     Home Page Should Be Open
     Page Should Contain  Clean Code
 
