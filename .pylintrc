@@ -18,10 +18,19 @@ disable=raw-checker-failed,
         missing-class-docstring
 
 [FORMAT]
-max-line-length=180
+expected-line-ending-format=
+ignore-long-lines=^\s*(# )?<?https?://\S+>?$
+indent-after-paren=4
+indent-string='    '
+max-line-length=140
+max-module-lines=1000
+single-line-class-stmt=no
+single-line-if-stmt=no
 
 [REFACTORING]
+max-nested-blocks=3
+never-returning-functions=sys.exit
 
 [DESIGN]
-max-args=12
-max-positional-arguments=12
+max-args=10
+max-positional-arguments=10
