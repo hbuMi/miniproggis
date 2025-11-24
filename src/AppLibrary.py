@@ -13,7 +13,7 @@ class AppLibrary:
             'publisher': publisher,
             'note': note
         }
-        requests.post(f"{self._base_url}/create_book", data=data)
+        requests.post(f"{self._base_url}/create_book", data=data, timeout=10)
 
     def reset_database(self):
-        requests.get(f"{self._base_url}/reset_db")
+        requests.get(f"{self._base_url}/reset_db", timeout=10)

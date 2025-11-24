@@ -1,8 +1,9 @@
 from flask import redirect, request, render_template
+from sqlalchemy import text
 from util import validate_book
 from repositories.reference_repository import create_book
 from config import app, test_env, db
-from sqlalchemy import text
+from db_helper import reset_db
 
 
 @app.route('/')
@@ -49,6 +50,5 @@ def book_creation():
 @app.route('/reset_db')
 def reset_database():
     if test_env:
-        from db_helper import reset_db
         reset_db()
     return redirect('/')

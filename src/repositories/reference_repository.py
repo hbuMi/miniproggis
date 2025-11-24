@@ -1,5 +1,6 @@
-from config import db
 from sqlalchemy import text
+from config import db
+
 
 def create_book(name, author, title, year, editor, publisher, note):
     sql = text("INSERT INTO sources (name, title, author, year, publisher, note) VALUES (:name, :title, :author, :year, :publisher, :note)")
