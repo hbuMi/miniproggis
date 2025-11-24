@@ -1,4 +1,4 @@
-from flask import redirect, request, render_template
+from flask import redirect, request, render_template, flash
 from sqlalchemy import text
 from util import validate_book
 from repositories.reference_repository import create_book
@@ -40,11 +40,11 @@ def book_creation():
     note = request.form.get('note')
 
     try:
-        validate_book(author, title, year)
+        validate_book(author, title, year, editor, publisher, note)
         create_book(name, author, title, year, editor, publisher, note)
         return redirect('/')
     except Exception as error:
-        print(error)
+        flash(str(error))
         return redirect('/new_reference')
 
 @app.route('/reset_db')
