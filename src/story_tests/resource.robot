@@ -1,6 +1,5 @@
 *** Settings ***
 Library  SeleniumLibrary
-Library  ../repositories/reference_repository.py
 
 *** Variables ***
 ${SERVER}     localhost:5001

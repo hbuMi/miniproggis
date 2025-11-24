@@ -2,6 +2,10 @@
 
 echo "Running tests"
 
+# Otetaan yhteys testitietokantaan
+export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
+export TEST_ENV=true
+
 # luodaan tietokanta
 poetry run python src/db_helper.py
 

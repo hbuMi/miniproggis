@@ -2,8 +2,9 @@ from config import db
 from sqlalchemy import text
 
 def create_book(name, author, title, year, editor, publisher, note):
-    sql = text("INSERT INTO sources (title, author, year, publisher, note) VALUES (:title, :author, :year, :publisher, :note)")
-    db.session.execute(sql, {"title": title,
+    sql = text("INSERT INTO sources (name, title, author, year, publisher, note) VALUES (:name, :title, :author, :year, :publisher, :note)")
+    db.session.execute(sql, {"name": name,
+                             "title": title,
                              "author": author,
                              "year": year,
                              "publisher": publisher,
