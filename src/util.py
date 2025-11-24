@@ -1,5 +1,4 @@
 import datetime
-import re
 
 class UserInputError(Exception):
     pass
@@ -40,7 +39,7 @@ def _validate_author(author):
         raise UserInputError("Liian lyhyt kirjoittaja")
 
     # Testi ettei nimessä numeroita
-    if (bool(re.search(r'/d', author))) is True:
+    if any(char.isdigit() for char in author):
         raise UserInputError("Kirjoittajan nimessä ei kuulu olla numeroita")
 
 def _validate_editor(editor):
@@ -49,7 +48,7 @@ def _validate_editor(editor):
         raise UserInputError("Liian lyhyt muokkaaja")
 
     # Testi ettei nimessä numeroita
-    if (bool(re.search(r'/d', editor))) is True:
+    if any(char.isdigit() for char in editor):
         raise UserInputError("Muokkaajan nimessä ei kuulu olla numeroita")
 
 def _validate_publisher(publisher):
@@ -58,7 +57,7 @@ def _validate_publisher(publisher):
         raise UserInputError("Liian lyhyt julkaisija")
 
     # Testi ettei nimessä numeroita
-    if (bool(re.search(r'/d', publisher))) is True:
+    if any(char.isdigit() for char in publisher):
         raise UserInputError("Julkaisijan nimessä ei kuulu olla numeroita")
 
 def _validate_title(title):
