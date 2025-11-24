@@ -17,7 +17,7 @@ def tables():
       "WHERE table_schema = 'public' "
       "AND table_name NOT LIKE '%_id_seq'"
     )
-    
+
     result = db.session.execute(sql)
     return [row[0] for row in result.fetchall()]
 
