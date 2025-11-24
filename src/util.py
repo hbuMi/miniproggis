@@ -12,6 +12,12 @@ def validate_book(author, title, year, editor, publisher, note):
     _validate_publisher(publisher)
     _validate_note(note)
 
+def validate_article(author, title, journal, year):
+    _validate_author(author)
+    _validate_title(title)
+    _validate_publisher(journal)
+    _validate_year(year)
+
 def _validate_year(year):
     # Testi onko vuosi luku
     try:
