@@ -8,7 +8,7 @@ from db_helper import reset_db
 
 @app.route('/')
 def index():
-    sql = text('SELECT * FROM sources')
+    sql = text('SELECT * FROM books')
     query = db.session.execute(sql)
     items = query.fetchall()
     references = []
@@ -24,7 +24,7 @@ def new():
 
 @app.route('/reference/<int:reference_id>')
 def show_reference(reference_id):
-    sql = text('SELECT * FROM sources WHERE id = :id')
+    sql = text('SELECT * FROM books WHERE id = :id')
     query = db.session.execute(sql, {'id': reference_id})
     reference = query.fetchone()
     return render_template('show_reference.html', reference=reference) if reference else redirect('/')
