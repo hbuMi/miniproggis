@@ -45,3 +45,10 @@ def book_creation():
     except Exception as error:
         print(error)
         return redirect('/new_reference')
+
+@app.route('/reset_db')
+def reset_database():
+    if test_env:
+        from db_helper import reset_db
+        reset_db()
+    return redirect('/')

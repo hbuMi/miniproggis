@@ -1,5 +1,6 @@
 *** Settings ***
 Library  SeleniumLibrary
+Library  ../AppLibrary.py
 
 *** Variables ***
 ${SERVER}     localhost:5001
@@ -13,7 +14,7 @@ ${HEADLESS}   false
 Open And Configure Browser
     IF  $BROWSER == 'chrome'
         ${options}  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys
-        Call Method  ${options}  add_argument  --incognito
+        Call Method  ${options}  add_argument  --incognito    
     ELSE IF  $BROWSER == 'firefox'
         ${options}  Evaluate  sys.modules['selenium.webdriver'].FirefoxOptions()  sys
         Call Method  ${options}  add_argument  --private-window
@@ -40,4 +41,6 @@ Create New Reference Page Should Be Open
     Location Should Be  ${HOME_URL}/new_reference
     Title Should Be  Lisää lähde
 
-
+Reset Database And Go To Home Page
+    Reset Database
+    Go To Home Page
