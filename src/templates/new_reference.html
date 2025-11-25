@@ -1,40 +1,82 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Lisää lähde</title>
+  <style>
+    #all_references form { display:none;}
+    #all_references.f-Kirja form[name=Kirja],
+    #all_references.f-Artikkeli form[name=Artikkeli] { display:block;}
+  </style>
 </head>
-
 <body>
-  <h1>Lisää Lähde</h1>  
+  <h1>Uusi lähde</h1> 
 
-  <form action="/create_book" method="POST">
-    <p>
-      nimi: <input type="text" name="name"/>
-    </p>
-    <p>
-      kirjoittaja: <input type="text" name="author"/>
-    </p>
-    <p>
-      editoija: <input type="text" name="editor"/>
-    </p>
-    <p>
-      kirjan nimi: <input type="text" name="title"/>
-    </p>
-    <p>
-      julkaisija: <input type="text" name="publisher"/>
-    </p>
-    <p>
-      julkaisu vuosi: <input type="text" name="year"/>
-    </p>
-    <p>
-      muistiipano: <input type="text" name="note"/>
-    </p>
+  <h4>Valitse lähdetyyppi:</h4>
+  <select id="reference_selector">
+    <option value="_" selected disabled>Valitse</option>
+    <option value="Kirja">Kirja</option>
+    <option value="Artikkeli">Artikkeli</option>
+  </select>
 
-    <input type="submit" value="Lisää Lähde"/>
+  <div id="all_references">
+    <form name="Kirja" action="/create_book" method="POST">
+      <p>
+        Lähteen nimi: <input type="text" name="name"/>
+      </p>
+      <p>
+        Kirjoittaja: <input type="text" name="author"/>
+      </p>
+      <p>
+        Editoija: <input type="text" name="editor"/>
+      </p>
+      <p>
+        Kirjan nimi: <input type="text" name="title"/>
+      </p>
+      <p>
+        Julkaisija: <input type="text" name="publisher"/>
+      </p>
+      <p>
+        Julkaisu vuosi: <input type="number" name="year"/>
+      </p>
+      <p>
+        Muistiipano: <input type="text" name="note"/>
+      </p>
 
-  </from>
+      <input type="submit" value="Lisää Lähde"/>
 
+    </form>
+
+        <form name="Artikkeli" action="/create_article" method="POST">
+      <p>
+        Lähteen nimi: <input type="text" name="name"/>
+      </p>
+      <p>
+        Kirjoittaja: <input type="text" name="author"/>
+      </p>
+      <p>
+        Julkaisu: <input type="text" name="journal"/>
+      </p>
+      <p>
+        Artikkelin nimi: <input type="text" name="title"/>
+      </p>
+      <p>
+        Julkaisu vuosi: <input type="number" name="year"/>
+      </p>
+      <p>
+        Muistiipano: <input type="text" name="note"/>
+      </p>
+
+      <input type="submit" value="Lisää Lähde"/>
+
+    </form>
+  </div>
+
+  <script>
+    const referenceSelect = document.getElementById("reference_selector"),
+    allReferences = document.getElementById('all_references');
+
+    referenceSelect.oninput=()=>{ allReferences.className = `f-${referenceSelect.value}` }
+  </script>
   <p>
     <a href="/">Etusivulle</a>
   </p>

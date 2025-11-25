@@ -13,8 +13,18 @@ def create_book(name, author, title, year, editor, publisher, note):
                              "note": note })
     db.session.commit()
 
+def create_article(name, author, title, year, journal, note):
+    sql = text("INSERT INTO articles (name, author, title, journal, year, note) VALUES (:name, :title, :author, :year, :journal, :note)")
+    db.session.execute(sql, {"name": name,
+                             "title": title,
+                             "author": author,
+                             "journal": journal,
+                             "year": year,
+                             "note": note })
+    db.session.commit()
+
 def print_all_titles():
-    result = db.session.execute(text("SELECT title FROM books"))
+    result = db.session.execute(text("SELECT title FROM articles"))
     titles = result.fetchall()
     for row in titles:
         print(row.title)
