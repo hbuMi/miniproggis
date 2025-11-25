@@ -8,13 +8,24 @@ from db_helper import reset_db
 
 @app.route('/')
 def index():
-    sql = text('SELECT * FROM books')
-    query = db.session.execute(sql)
-    items = query.fetchall()
+    sql_books = text("SELECT *, 'book' as type FROM books")
+    query_books = db.session.execute(sql_books)
+    items_books = query_books.fetchall()
+
+    sql_articles = text("SELECT *, 'article' as type FROM articles")
+    query_articles = db.session.execute(sql_articles)
+    items_articles = query_articles.fetchall()
+
     references = []
-    for item in items:
-        reference = {'id': item[0], 'name': item[1]}
+    for item in items_books:
+        reference = {'id': item[0], 'name': item[1], 'type': 'book'}
         references.append(reference)
+    
+    for item in items_articles:
+        reference = {'id': item[0], 'name': item[1], 'type': 'article'}
+        references.append(reference)
+
+    references = sorted(references, key=lambda r: r['id'])   # viitteet järjestetty id:n mukaan
 
     return render_template('index.html', references=references)
 
@@ -22,9 +33,13 @@ def index():
 def new():
     return render_template('new_reference.html')
 
-@app.route('/reference/<int:reference_id>')
-def show_reference(reference_id):
-    sql = text('SELECT * FROM books WHERE id = :id')
+@app.route('/reference/<string:ref_type>/<int:reference_id>')
+def show_reference(ref_type, reference_id):
+    if ref_type == 'book':
+        sql = text('SELECT * FROM books WHERE id = :id')
+    elif ref_type == 'article':
+        sql = text('SELECT * FROM articles WHERE id = id:')
+
     query = db.session.execute(sql, {'id': reference_id})
     reference = query.fetchone()
     return render_template('show_reference.html', reference=reference) if reference else redirect('/')
