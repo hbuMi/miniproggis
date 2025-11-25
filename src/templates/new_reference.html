@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Lisää lähde</title>
+  <!-- näkyy vain yksi lomake kerrallaan -->
   <style>
     #all_references form { display:none;}
     #all_references.f-Kirja form[name=Kirja],
@@ -18,6 +19,7 @@
     <option value="Artikkeli">Artikkeli</option>
   </select>
 
+  <h5>Uusi lähde</h5>
   <div id="all_references">
     <form name="Kirja" action="/create_book" method="POST">
       <p>

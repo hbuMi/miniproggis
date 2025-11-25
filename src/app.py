@@ -42,7 +42,8 @@ def show_reference(ref_type, reference_id):
 
     query = db.session.execute(sql, {'id': reference_id})
     reference = query.fetchone()
-    return render_template('show_reference.html', reference=reference) if reference else redirect('/')
+    ref = ref_type
+    return render_template('show_reference.html', reference=reference, ref=ref) if reference else redirect('/')
 
 @app.route('/create_book', methods=['POST'])
 def book_creation():
