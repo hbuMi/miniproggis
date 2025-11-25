@@ -1,6 +1,6 @@
 from flask import redirect, request, render_template, flash
 from sqlalchemy import text
-from util import validate_book, validate_article
+from util import validate_book, validate_article, create_bibtex
 from repositories.reference_repository import create_book, create_article 
 from config import app, test_env, db
 from db_helper import reset_db
@@ -45,7 +45,7 @@ def show_reference(ref_type, reference_id):
     query = db.session.execute(sql, {'id': reference_id})
     reference = query.fetchone()
     ref = ref_type
-    return render_template('show_reference.html', reference=reference, ref=ref) if reference else redirect('/')
+    return render_template('show_reference.html', reference=reference, ref=ref, create_bibtex=create_bibtex) if reference else redirect('/')
 
 @app.route('/create_book', methods=['POST'])
 def book_creation():

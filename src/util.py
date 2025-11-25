@@ -3,6 +3,30 @@ import datetime
 class UserInputError(Exception):
     pass
 
+def create_bibtex(reference, ref_type="article"):
+    output = [f"@{ref_type}{{{reference.name},"]
+    output.append(f"  title      = \"{reference.title}\",")
+    output.append(f"  author     = \"{reference.author}\",")
+    output.append(f"  year       = \"{reference.year}\",")
+
+    if ref_type == "article":
+        output.append(f"  journal = \"{reference.journal}\",")
+    
+    if ref_type == "book":
+        if getattr(reference, "editor"):
+            output.append(f"  editor  = \"{reference.editor}\",")
+        if getattr(reference, "publisher"):
+            output.append(f"  publisher  = \"{reference.publisher}\",")
+
+    if getattr(reference, "note"):
+        output.append(f"  note       = \"{reference.note}\"")
+
+    if output[-1].endswith(","):
+        output[-1] = output[-1][:-1]
+
+    output.append("}")
+    return "\n".join(output)
+
 def validate_book(author, title, year, editor, publisher, note):
     _validate_author(author)
     _validate_title(title)

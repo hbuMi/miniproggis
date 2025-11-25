@@ -8,20 +8,44 @@
 <body>
   <h1>Lähde</h1> 
 
-  <pre>
-    @{{ ref }}{{ "{" }}{{ reference.name }},<br />
-      title     = "{{ reference.title }}",<br />
-      author    = "{{ reference.author }}",<br />
-      year      = {{ reference.year  }},<br />
-      publisher = "{{ reference.publisher }}",<br />
-      note      = {{ reference.note }} <br />
-    }
-  </pre>
+  <table>
+  <tr><td>Otsikko</td><td>{{ reference.title }}</td></tr>
+  <tr><td>Kirjoittaja</td><td>{{ reference.author }}</td></tr>
+  <tr><td>Julkaisuvuosi</td><td>{{ reference.year }}</td></tr>
+
+  {% if reference.journal %}
+  <tr><td>Julkaisu</td><td>{{ reference.journal }}</td></tr>
+  {% endif %}
+
+  {% if reference.publisher %}
+  <tr><td>Kustantaja</td><td>{{ reference.publisher }}</td></tr>
+  {% endif %}
+
+  {% if reference.editor %}
+  <tr><td>Toimittaja</td><td>{{ reference.editor }}</td></tr>
+  {% endif %}
+
+  {% if reference.note %}
+  <tr><td>Muistiinpanot</td><td>{{ reference.note }}</td></tr>
+  {% endif %}
+  </table>
+
+  <script id="bibtex" type="text/plain">
+  {{ create_bibtex(reference, ref)|safe }}
+  </script>
+
+  <script>
+  function copyBibtex() {
+      const bib = document.getElementById("bibtex").textContent.trim();
+      navigator.clipboard.writeText(bib);
+  }
+  </script>
+
+<button onclick="copyBibtex()">Kopioi BibTeX</button>
 
   <p>
     <a href="/">Etusivulle</a>
   </p>
 
 </body>
-
 </html>
