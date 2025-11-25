@@ -16,18 +16,20 @@ def index():
     query_articles = db.session.execute(sql_articles)
     items_articles = query_articles.fetchall()
 
-    references = []
+    books = []
     for item in items_books:
         reference = {'id': item[0], 'name': item[1], 'type': 'book'}
-        references.append(reference)
+        books.append(reference)
     
+    articles = []
     for item in items_articles:
         reference = {'id': item[0], 'name': item[1], 'type': 'article'}
-        references.append(reference)
+        articles.append(reference)
 
-    references = sorted(references, key=lambda r: r['id'])   # viitteet järjestetty id:n mukaan
+    books = sorted(books, key=lambda r: r['id'])   # kirjat järjestetty id:n mukaan
+    articles = sorted(articles, key=lambda r: r['id'])   # artikkelit järjestetty id:n mukaan
 
-    return render_template('index.html', references=references)
+    return render_template('index.html', books=books, articles=articles)
 
 @app.route('/new_reference')
 def new():
