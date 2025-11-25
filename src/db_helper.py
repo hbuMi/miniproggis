@@ -4,8 +4,8 @@ from config import db, app
 
 
 def reset_db():
-    print(f"Clearing contents from table books")
-    sql = text(f"DELETE FROM books")
+    print(f"Clearing contents from table books and articles")
+    sql = text(f"DELETE FROM books;DELETE FROM articles")
     db.session.execute(sql)
     db.session.commit()
 

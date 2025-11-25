@@ -14,7 +14,7 @@ def create_book(name, author, title, year, editor, publisher, note):
     db.session.commit()
 
 def create_article(name, author, title, year, journal, note):
-    sql = text("INSERT INTO articles (name, author, title, journal, year, note) VALUES (:name, :title, :author, :year, :journal, :note)")
+    sql = text("INSERT INTO articles (name, author, title, year, journal, note) VALUES (:name, :author, :title, :year, :journal, :note)")
     db.session.execute(sql, {"name": name,
                              "title": title,
                              "author": author,
