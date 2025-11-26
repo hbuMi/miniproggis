@@ -11,7 +11,14 @@
 </head>
 <body>
   <h1>Uusi lähde</h1> 
-
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div><b>VIRHE!</b></div>
+      {% for message in messages %}
+        <div>{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
   <h4>Valitse lähdetyyppi:</h4>
   <select id="reference_selector">
     <option value="_" selected disabled>Valitse</option>
