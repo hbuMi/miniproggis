@@ -11,6 +11,7 @@ CREATE TABLE books (
 
 CREATE TABLE articles (
   id SERIAL PRIMARY KEY,
+  name TEXT,
   author TEXT,
   title TEXT,
   journal TEXT,

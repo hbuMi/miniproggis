@@ -22,10 +22,18 @@
     <a href="/new_reference">Lisää Lähde</a>
   </p>
 
-  <h2>Luodut lähteet</h2>
+  <h2>Luodut lähteet:</h2>
+  <h3>Luodut kirjat:</h3>
   <ul>
-  {% for reference in references %}
-  <li><a href="/reference/{{ reference.type }}/{{ reference.id }}">{{ reference.name }}</a></li>
+  {% for book in books %}
+  <li><a href="/reference/{{ book.type }}/{{ book.id }}">{{ book.name }}</a></li>
+  {% endfor %}
+  </ul>
+
+  <h3>Loudut artikkelit:</h3>
+  <ul>
+  {% for article in articles %}
+  <li><a href="/reference/{{ article.type }}/{{ article.id }}">{{ article.name }}</a></li>
   {% endfor %}
   </ul>
 

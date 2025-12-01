@@ -1,7 +1,7 @@
 from flask import redirect, request, render_template, flash
 from sqlalchemy import text
-from util import validate_book
-from repositories.reference_repository import create_book
+from util import validate_book, validate_article, create_bibtex
+from repositories.reference_repository import create_book, create_article
 from config import app, test_env, db
 from db_helper import reset_db
 
@@ -16,18 +16,20 @@ def index():
     query_articles = db.session.execute(sql_articles)
     items_articles = query_articles.fetchall()
 
-    references = []
+    books = []
     for item in items_books:
         reference = {'id': item[0], 'name': item[1], 'type': 'book'}
-        references.append(reference)
+        books.append(reference)
 
+    articles = []
     for item in items_articles:
         reference = {'id': item[0], 'name': item[1], 'type': 'article'}
-        references.append(reference)
+        articles.append(reference)
 
-    references = sorted(references, key=lambda r: r['id'])   # viitteet järjestetty id:n mukaan
+    books = sorted(books, key=lambda r: r['id'])   # kirjat järjestetty id:n mukaan
+    articles = sorted(articles, key=lambda r: r['id'])   # artikkelit järjestetty id:n mukaan
 
-    return render_template('index.html', references=references)
+    return render_template('index.html', books=books, articles=articles)
 
 @app.route('/new_reference')
 def new():
@@ -43,7 +45,8 @@ def show_reference(ref_type, reference_id):
     query = db.session.execute(sql, {'id': reference_id})
     reference = query.fetchone()
 
-    return render_template('show_reference.html', reference=reference) if reference else redirect('/')
+    ref = ref_type
+    return render_template('show_reference.html', reference=reference, ref=ref, create_bibtex=create_bibtex) if reference else redirect('/')
 
 @app.route('/create_book', methods=['POST'])
 def book_creation():
@@ -58,6 +61,23 @@ def book_creation():
     try:
         validate_book(author, title, year, editor, publisher, note)
         create_book(name, author, title, year, editor, publisher, note)
+        return redirect('/')
+    except Exception as error:
+        flash(str(error))
+        return redirect('/new_reference')
+
+@app.route('/create_article', methods=['POST'])
+def article_creation():
+    name = request.form.get('name')
+    author = request.form.get('author')
+    title = request.form.get('title')
+    year = request.form.get('year')
+    journal = request.form.get('journal')
+    note = request.form.get('note')
+
+    try:
+        validate_article(author, title, journal, year, note)
+        create_article(name, author, title, year, journal, note)
         return redirect('/')
     except Exception as error:
         flash(str(error))
