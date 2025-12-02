@@ -64,8 +64,9 @@ def book_creation():
         return redirect('/')
     except Exception as error:
         flash(str(error))
-        return redirect('/new_reference')
-
+        return render_template('new_reference.html', book_name=name, book_author=author, book_title=title,
+                               book_year=year, book_editor=editor, book_publisher=publisher, book_note=note, selected='Kirja')
+    
 @app.route('/create_article', methods=['POST'])
 def article_creation():
     name = request.form.get('name')
@@ -81,7 +82,8 @@ def article_creation():
         return redirect('/')
     except Exception as error:
         flash(str(error))
-        return redirect('/new_reference')
+        return render_template('new_reference.html', article_name=name, article_author=author, article_title=title,
+                               article_year=year, article_journal=journal, article_note=note, selected='Artikkeli')
 
 @app.route('/search')
 def search():

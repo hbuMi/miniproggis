@@ -11,6 +11,7 @@
 </head>
 <body>
   <h1>Uusi lähde</h1> 
+
   {% with messages = get_flashed_messages() %}
     {% if messages %}
     <div><b>VIRHE!</b></div>
@@ -19,36 +20,37 @@
       {% endfor %}
     {% endif %}
   {% endwith %}
+
   <h4>Valitse lähdetyyppi:</h4>
   <select id="reference_selector">
-    <option value="_" selected disabled>Valitse</option>
-    <option value="Kirja">Kirja</option>
-    <option value="Artikkeli">Artikkeli</option>
+    <option value="_" {% if not selected %}selected disabled{% else %}disabled{% endif %}>Valitse</option>
+    <option value="Kirja" {% if selected == 'Kirja' %}selected{% endif %}>Kirja</option>
+    <option value="Artikkeli" {% if selected == 'Artikkeli' %}selected{% endif %}>Artikkeli</option>
   </select>
 
   <h5>Uusi lähde</h5>
-  <div id="all_references">
+  <div id="all_references" class="f-{{ selected }}">
     <form name="Kirja" action="/create_book" method="POST">
       <p>
-        Lähteen nimi: <input type="text" name="name"/>
+        Lähteen nimi: <input type="text" name="name" value="{{ book_name }}"/>
       </p>
       <p>
-        Kirjoittaja: <input type="text" name="author"/>
+        Kirjoittaja: <input type="text" name="author" value="{{ book_author }}"/>
       </p>
       <p>
-        Editoija: <input type="text" name="editor"/>
+        Editoija: <input type="text" name="editor" value="{{ book_editor }}"/>
       </p>
       <p>
-        Kirjan nimi: <input type="text" name="title"/>
+        Kirjan nimi: <input type="text" name="title" value="{{ book_title }}"/>
       </p>
       <p>
-        Julkaisija: <input type="text" name="publisher"/>
+        Julkaisija: <input type="text" name="publisher" value="{{ book_publisher }}"/>
       </p>
       <p>
-        Julkaisu vuosi: <input type="number" name="year"/>
+        Julkaisu vuosi: <input type="number" name="year" value="{{ book_year }}"/>
       </p>
       <p>
-        Muistiipano: <input type="text" name="note"/>
+        Muistiipano: <input type="text" name="note" value="{{ book_note }}"/>
       </p>
 
       <input type="submit" value="Lisää Lähde"/>
@@ -57,22 +59,22 @@
 
         <form name="Artikkeli" action="/create_article" method="POST">
       <p>
-        Lähteen nimi: <input type="text" name="name"/>
+        Lähteen nimi: <input type="text" name="name" value="{{ article_name }}"/>
       </p>
       <p>
-        Kirjoittaja: <input type="text" name="author"/>
+        Kirjoittaja: <input type="text" name="author" value="{{ article_author }}"/>
       </p>
       <p>
-        Julkaisu: <input type="text" name="journal"/>
+        Julkaisu: <input type="text" name="journal" value="{{ article_journal }}"/>
       </p>
       <p>
-        Artikkelin nimi: <input type="text" name="title"/>
+        Artikkelin nimi: <input type="text" name="title" value="{{ article_title }}"/>
       </p>
       <p>
-        Julkaisu vuosi: <input type="number" name="year"/>
+        Julkaisu vuosi: <input type="number" name="year" value="{{ article_year }}"/>
       </p>
       <p>
-        Muistiipano: <input type="text" name="note"/>
+        Muistiipano: <input type="text" name="note" value="{{ article_note }}"/>
       </p>
 
       <input type="submit" value="Lisää Lähde"/>
@@ -85,6 +87,17 @@
     allReferences = document.getElementById('all_references');
 
     referenceSelect.oninput=()=>{ allReferences.className = `f-${referenceSelect.value}` }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const preset = "{{ selected|default('') }}";
+      const urlType = new URLSearchParams(window.location.search).get('type');
+      const toOpen = preset || urlType;
+
+      if (toOpen === 'Kirja' || toOpen === 'Artikkeli') {
+        referenceSelect.value = toOpen;
+        allReferences.className = `f-${toOpen}`;
+        }
+    });
   </script>
   <p>
     <a href="/">Etusivulle</a>
