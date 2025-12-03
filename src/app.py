@@ -112,8 +112,8 @@ def download_bibtex():
             'name': article[1],
             'author': article[2],
             'title': article[3],
-            'year': article[4],
-            'journal': article[5],
+            'journal': article[4],
+            'year': article[5],
             'note': article[6]
         })()
         bibtex_entries.append(create_bibtex(article_ref, 'article'))

@@ -27,3 +27,32 @@ Ei mainittuja asioita.
 - Tiimi sitoutui kokoontumaan keskenään ennen asiakastapaamista, jotta varsinaiseen tapaamiseen ollaan paremmin valmistautuneita.
 
 ---
+---
+
+## Sprint 2
+
+Käytimme toisen sprintin retrospektiiviin samaa Start, Stop, Continue, More of, Less of -tekniikkaa.
+
+### Start
+Tiimissä toivottiin, että retrospektiivi ja sprintin suunnittelu pidettäisiin jatkossa mahdollisimman pian edeltävän sprintin asiakastapaamisen jälkeen.
+
+### Stop
+Ei mainittuja asioita.
+
+### Continue
+Tiimin jäsenten aktiivinen kommunikointi sprintin aikana tuotti hyviä tuloksia, joten sen toivottiin jatkuvan tulevissa sprinteissä. Myös asiakastapaaminen ja siihen valmistautuminen meni huomattavasti paremmin verrattuna ensimmäiseen sprinttiin.
+
+### More of
+Ei mainittuja asioita.
+
+### Less of
+Koodikommentteja ei enää koettu yhtä tarpeellisiksi nyt kun projektilla on vakiintuneempi rakenne ja tiimin jäsenillä on ollut aikaa perehtyä siihen kokonaisuutena.
+
+## Kehitystoimenpiteet
+
+- Retrospektiivi ja sprintin suunnittelu järjestetään entistä aikaisemmin jatkossa
+- Tiimin jäsenten välistä aktiivista kommunikointia jatketaan
+- Kokoonnumme jatkossakin hyvissä ajoin ennen asiakastapaamisia
+
+---
+---

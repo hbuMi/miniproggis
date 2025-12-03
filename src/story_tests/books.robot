@@ -37,10 +37,10 @@ User Cannot Add Book Reference With Non-numeric Year
     Input Text  css=form[name='Kirja'] input[name='year']        two thousand eight
     Input Text  css=form[name='Kirja'] input[name='note']        Testikommentti
     Click Button  css=form[name='Kirja'] input[type='submit']
-    # Page Should Contain  Vuoden oltava luku                            # Flash message needs to be added
-    Create New Reference Page Should Be Open                            # Workaround checks we're still on the same page
+    Create New Reference Page Should Be Open
 
 User Cannot Add Book Reference With Too Short Title
+    [Documentation]  Adding a book reference with a too short title shows a warning.
     Home Page Should Be Open
     Click Link  Lisää Lähde
     Create New Reference Page Should Be Open
@@ -54,8 +54,7 @@ User Cannot Add Book Reference With Too Short Title
     Input Text  css=form[name='Kirja'] input[name='year']        2008
     Input Text  css=form[name='Kirja'] input[name='note']        Testikommentti
     Click Button  css=form[name='Kirja'] input[type='submit']
-    Page Should Contain  Liian lyhyt nimi                               # Flash message needs to be added
-    # Create New Reference Page Should Be Open                             # Workaround checks we're still on the same page
+    Page Should Contain  Liian lyhyt nimi
 
 User Can View Book Reference Details
     Create Book Reference And Go To Home Page
@@ -69,6 +68,108 @@ User Can View Book Reference Details
     Page Should Contain  Addison-Wesley Professional
     Page Should Contain  1999
     Page Should Contain  Testimuistiinpanot
+
+User Gets Warning When Adding Book Reference With Too Short Author
+    [Documentation]  Adding a book reference with a too short author name shows a warning.
+    Home Page Should Be Open
+    Click Link  Lisää Lähde
+    Create New Reference Page Should Be Open
+    Press Keys  id=reference_selector  Kirja  ENTER
+    Wait Until Page Contains  Kirjan nimi
+    Input Text  css=form[name='Kirja'] input[name='name']        Clean Code
+    Input Text  css=form[name='Kirja'] input[name='author']      R
+    Input Text  css=form[name='Kirja'] input[name='editor']      Robert C. Martin
+    Input Text  css=form[name='Kirja'] input[name='title']       Clean Code: A Handbook of Agile Software Craftsmanship
+    Input Text  css=form[name='Kirja'] input[name='publisher']   Addison-Wesley Professional
+    Input Text  css=form[name='Kirja'] input[name='year']        2008
+    Input Text  css=form[name='Kirja'] input[name='note']        Testikommentti
+    Click Button  css=form[name='Kirja'] input[type='submit']
+    Page Should Contain  Liian lyhyt kirjoittaja
+
+User Gets Warning When Adding Book Reference With Author Name Containing Numbers
+    [Documentation]  Adding a book reference with numbers in the author name shows a warning.
+    Home Page Should Be Open
+    Click Link  Lisää Lähde
+    Create New Reference Page Should Be Open
+    Press Keys  id=reference_selector  Kirja  ENTER
+    Wait Until Page Contains  Kirjan nimi
+    Input Text  css=form[name='Kirja'] input[name='name']        Clean Code
+    Input Text  css=form[name='Kirja'] input[name='author']      Robert C. Martin1
+    Input Text  css=form[name='Kirja'] input[name='editor']      Robert C. Martin
+    Input Text  css=form[name='Kirja'] input[name='title']       Clean Code: A Handbook of Agile Software Craftsmanship
+    Input Text  css=form[name='Kirja'] input[name='publisher']   Addison-Wesley Professional
+    Input Text  css=form[name='Kirja'] input[name='year']        2008
+    Input Text  css=form[name='Kirja'] input[name='note']        Testikommentti
+    Click Button  css=form[name='Kirja'] input[type='submit']
+    Page Should Contain  Kirjoittajan nimessä ei kuulu olla numeroita
+
+User Gets Warning When Adding Book Reference With Too Short Publisher
+    [Documentation]  Adding a book reference with a too short publisher shows a warning.
+    Home Page Should Be Open
+    Click Link  Lisää Lähde
+    Create New Reference Page Should Be Open
+    Press Keys  id=reference_selector  Kirja  ENTER
+    Wait Until Page Contains  Kirjan nimi
+    Input Text  css=form[name='Kirja'] input[name='name']        Clean Code
+    Input Text  css=form[name='Kirja'] input[name='author']      Robert C. Martin
+    Input Text  css=form[name='Kirja'] input[name='editor']      Robert C. Martin
+    Input Text  css=form[name='Kirja'] input[name='title']       Clean Code: A Handbook of Agile Software Craftsmanship
+    Input Text  css=form[name='Kirja'] input[name='publisher']   A
+    Input Text  css=form[name='Kirja'] input[name='year']        2008
+    Input Text  css=form[name='Kirja'] input[name='note']        Testikommentti
+    Click Button  css=form[name='Kirja'] input[type='submit']
+    Page Should Contain  Liian lyhyt julkaisija
+
+User Gets Warning When Adding Book Reference With Publisher Containing Numbers
+    [Documentation]  Adding a book reference with numbers in the publisher name shows a warning.
+    Home Page Should Be Open
+    Click Link  Lisää Lähde
+    Create New Reference Page Should Be Open
+    Press Keys  id=reference_selector  Kirja  ENTER
+    Wait Until Page Contains  Kirjan nimi
+    Input Text  css=form[name='Kirja'] input[name='name']        Clean Code
+    Input Text  css=form[name='Kirja'] input[name='author']      Robert C. Martin
+    Input Text  css=form[name='Kirja'] input[name='editor']      Robert C. Martin
+    Input Text  css=form[name='Kirja'] input[name='title']       Clean Code: A Handbook of Agile Software Craftsmanship
+    Input Text  css=form[name='Kirja'] input[name='publisher']   Addison-Wesley Professional2
+    Input Text  css=form[name='Kirja'] input[name='year']        2008
+    Input Text  css=form[name='Kirja'] input[name='note']        Testikommentti
+    Click Button  css=form[name='Kirja'] input[type='submit']
+    Page Should Contain  Julkaisijan nimessä ei kuulu olla numeroita
+
+User Gets Warning When Adding Book Reference With Too Short Editor
+    [Documentation]  Adding a book reference with a too short editor name shows a warning.
+    Home Page Should Be Open
+    Click Link  Lisää Lähde
+    Create New Reference Page Should Be Open
+    Press Keys  id=reference_selector  Kirja  ENTER
+    Wait Until Page Contains  Kirjan nimi
+    Input Text  css=form[name='Kirja'] input[name='name']        Clean Code
+    Input Text  css=form[name='Kirja'] input[name='author']      Robert C. Martin
+    Input Text  css=form[name='Kirja'] input[name='editor']      R
+    Input Text  css=form[name='Kirja'] input[name='title']       Clean Code: A Handbook of Agile Software Craftsmanship
+    Input Text  css=form[name='Kirja'] input[name='publisher']   Addison-Wesley Professional
+    Input Text  css=form[name='Kirja'] input[name='year']        2008
+    Input Text  css=form[name='Kirja'] input[name='note']        Testikommentti
+    Click Button  css=form[name='Kirja'] input[type='submit']
+    Page Should Contain  Liian lyhyt muokkaaja
+
+User Gets Warning When Adding Book Reference With Editor Name Containing Numbers
+    [Documentation]  Adding a book reference with numbers in the editor name shows a warning.
+    Home Page Should Be Open
+    Click Link  Lisää Lähde
+    Create New Reference Page Should Be Open
+    Press Keys  id=reference_selector  Kirja  ENTER
+    Wait Until Page Contains  Kirjan nimi
+    Input Text  css=form[name='Kirja'] input[name='name']        Clean Code
+    Input Text  css=form[name='Kirja'] input[name='author']      Robert C. Martin
+    Input Text  css=form[name='Kirja'] input[name='editor']      Robert C. Martin2
+    Input Text  css=form[name='Kirja'] input[name='title']       Clean Code: A Handbook of Agile Software Craftsmanship
+    Input Text  css=form[name='Kirja'] input[name='publisher']   Addison-Wesley Professional
+    Input Text  css=form[name='Kirja'] input[name='year']        2008
+    Input Text  css=form[name='Kirja'] input[name='note']        Testikommentti
+    Click Button  css=form[name='Kirja'] input[type='submit']
+    Page Should Contain  Muokkaajan nimessä ei kuulu olla numeroita
 
 
 *** Keywords ***
