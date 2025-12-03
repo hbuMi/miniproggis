@@ -1,4 +1,4 @@
-from flask import redirect, request, render_template, flash
+from flask import redirect, request, render_template, flash, Response
 from sqlalchemy import text
 from util import validate_book, validate_article, create_bibtex
 from repositories.reference_repository import create_book, create_article
@@ -84,6 +84,43 @@ def article_creation():
         flash(str(error))
         return render_template('new_reference.html', article_name=name, article_author=author, article_title=title,
                                article_year=year, article_journal=journal, article_note=note, selected='Artikkeli')
+    
+@app.route('/download_bibtex')
+def download_bibtex():
+    sql_books = text("SELECT * FROM books")
+    books = db.session.execute(sql_books).fetchall()
+
+    sql_articles = text("SELECT * FROM articles")
+    articles = db.session.execute(sql_articles).fetchall()
+
+    bibtex_entries = []
+
+    for book in books:
+        book_ref = type('obj', (object,), {
+            'name': book[1],
+            'title': book[2],
+            'author': book[3],
+            'year': book[4],
+            'editor': book[5],
+            'publisher': book[6],
+            'note': book[7]
+        })()
+        bibtex_entries.append(create_bibtex(book_ref, 'book'))
+
+    for article in articles:
+        article_ref = type('obj', (object,), {
+            'name': article[1],
+            'author': article[2],
+            'title': article[3],
+            'year': article[4],
+            'journal': article[5],
+            'note': article[6]
+        })()
+        bibtex_entries.append(create_bibtex(article_ref, 'article'))
+
+    bibtex_content = '\n\n'.join(bibtex_entries)
+
+    return Response(bibtex_content, mimetype='text/plain', headers={"Content-Disposition": "attachment;filename=references.bib"})
 
 @app.route('/search')
 def search():
