@@ -51,8 +51,7 @@ User Cannot Add Article Reference With Too Short Title
     Input Text  css=form[name='Artikkeli'] input[name='year']        2017
     Input Text  css=form[name='Artikkeli'] input[name='note']        Testiartikkeli
     Click Button  css=form[name='Artikkeli'] input[type='submit']
-#    Page Should Contain  Liian lyhyt nimi                               # Flash message needs to be added
-    Create New Reference Page Should Be Open                             # Workaround checks we're still on the same page 
+    Page Should Contain  Liian lyhyt nimi                               # Flash message needs to be added
 
 User Can View Article Reference Details
     Create Article Reference And Go To Home Page

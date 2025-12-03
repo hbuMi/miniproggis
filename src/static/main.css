@@ -231,3 +231,16 @@ input[type=submit]:hover {
   text-align: left;
   padding-left: 12px;
 }
+
+.flash {
+  margin: 8px 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.flash.error {
+  background: #fffb00;;
+  color: #000000;
+  border: 1px solid #fffb00;
+}

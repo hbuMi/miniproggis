@@ -37,7 +37,7 @@ User Cannot Add Book Reference With Non-numeric Year
     Input Text  css=form[name='Kirja'] input[name='year']        two thousand eight
     Input Text  css=form[name='Kirja'] input[name='note']        Testikommentti
     Click Button  css=form[name='Kirja'] input[type='submit']
-#    Page Should Contain  Vuoden oltava luku                            # Flash message needs to be added
+    # Page Should Contain  Vuoden oltava luku                            # Flash message needs to be added
     Create New Reference Page Should Be Open                            # Workaround checks we're still on the same page
 
 User Cannot Add Book Reference With Too Short Title
@@ -54,8 +54,8 @@ User Cannot Add Book Reference With Too Short Title
     Input Text  css=form[name='Kirja'] input[name='year']        2008
     Input Text  css=form[name='Kirja'] input[name='note']        Testikommentti
     Click Button  css=form[name='Kirja'] input[type='submit']
-#    Page Should Contain  Liian lyhyt nimi                               # Flash message needs to be added
-    Create New Reference Page Should Be Open                             # Workaround checks we're still on the same page
+    Page Should Contain  Liian lyhyt nimi                               # Flash message needs to be added
+    # Create New Reference Page Should Be Open                             # Workaround checks we're still on the same page
 
 User Can View Book Reference Details
     Create Book Reference And Go To Home Page
