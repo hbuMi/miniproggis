@@ -1,0 +1,233 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lucida Code", monospace;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+input,
+select,
+textarea,
+button { font: inherit; }
+
+.header {
+  background: linear-gradient(90deg,
+    #dd00f3, #ff2400, #e81d1d, #e8b71d, #e3e81d,
+    #1de840, #1ddde8, #2b1de8, #dd00f3);
+  background-size: 200% 100%;
+  -webkit-text-fill-color: #000;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,0,0,0.12);
+  animation: glowing 8s linear infinite;
+  padding: 5px;
+  text-align: center;
+  font-size: 25px;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.footer {
+  background: linear-gradient(90deg,
+    #dd00f3, #ff2400, #e81d1d, #e8b71d, #e3e81d,
+    #1de840, #1ddde8, #2b1de8, #dd00f3);
+  background-size: 200% 100%;
+  -webkit-text-fill-color: #000;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,0,0,0.12);
+  animation: glowing 8s linear infinite;
+  padding: 10px;
+  text-align: center;
+  font-size: 15px;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+@keyframes glowing {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.button {
+  background-color: #07c400;
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #06b300;
+  transform: translateY(-1px);
+}
+
+.row {
+  display: -webkit-flex;
+  display: flex;
+  flex: 1 0 auto;
+}
+
+.column {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 10px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fafafa;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.search-form input[type="text"] {
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.references {
+  flex: 1 0 auto;
+  padding: 16px;
+}
+
+.references .columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.references .column {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.references .column h2,
+.references .column h3 {
+  margin: 0.4rem 0;
+}
+
+.references .ref-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.4rem 0;
+}
+
+.references .ref-list li {
+  margin: 0.25rem 0;
+}
+
+
+form {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+label {display: block;}
+
+input[type=text], 
+input[type=number],
+select {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #07c400;
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  padding: 14px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #06b300;
+}
+
+.page-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 16px;
+  flex: 1 0 auto;
+}
+
+.page-container hr {
+  display: none;
+}
+
+.ref-table {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ref-table tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+.ref-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+}
+
+.ref-table tr:last-child td {
+  border-bottom: none;
+}
+
+.ref-table td.label {
+  width: 35%;
+  font-weight: 600;
+  color: #374151;
+  text-align: right;
+  padding-right: 12px;
+}
+
+.ref-table td.value {
+  width: 65%;
+  color: #000000;
+  text-align: left;
+  padding-left: 12px;
+}

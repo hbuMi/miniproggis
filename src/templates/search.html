@@ -2,24 +2,38 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
   <title>Haku</title>
 </head>
 
 <body>
-<h1>Haku</h1>
+<div class="header">
+  <h1>Haku</h1>
+</div>
 
-<a href="/">Takaisin etusivulle </a>
-
+<div class="page-container">
+  <div class="references">
   {% if query %}
-  <hr />
-  <h2>Tulokset</h2>
-  
-  <ul>
-  {% for result in results %}
-    <li><a href="/reference/{{ result.type }}/{{ result.id }}">{{ result.title }}</a></li>
-  {% endfor %}
-  </ul>
+    <hr />
+    <h2 style="text-align: center;">Tulokset haulla {{ query }}:</h2>
+    
+    <ul class="ref-list">
+    {% for result in results %}
+      <li style="text-align: center;"><a href="/reference/{{ result.type }}/{{ result.id }}">{{ result.title }}</a></li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p stlye="text-align: center;">Ei tuloksia</p>
   {% endif %}
 
+    <p style="text-align: center; margin-top: 60px;">
+      <a href="/" class="button">Etusivulle</a>
+    </p>
+  </div>
+</div>
+
+<div class="footer">
+  <p>miniproggis</p>
+</div>
 </body>
 </html> 

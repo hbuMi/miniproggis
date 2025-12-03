@@ -1,41 +1,55 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
   <title>BibTextittäjä 3000</title>
 </head>
 
 <body>
-  <h1>BibTextittäjä 3000</h1>
-    <form action="/search" method="get">
+  <div class="header">
+    <h1>BibTextittäjä 3000</h1>
+  </div>
+  <div class="toolbar">
     <p>
-      Hakusana:
+      <a href="/new_reference" class="button">Lisää Lähde</a>
+    </p>
+    <form action="/search" method="get" class="search-form">
+    <p>
+      Hae lähdettä:
       {% if query %}
       <input type="text" name="query" value="{{ query }}" />
       {% else %}
       <input type="text" name="query" />
       {% endif %}
     </p>
-    <input type="submit" value="Hae" />
+    <Button type="submit" class="button">Hae</Button>
   </form>
-  <p>
-    <a href="/new_reference">Lisää Lähde</a>
-  </p>
+     </div>
 
-  <h2>Luodut lähteet:</h2>
-  <h3>Luodut kirjat:</h3>
-  <ul>
-  {% for book in books %}
-  <li><a href="/reference/{{ book.type }}/{{ book.id }}">{{ book.name }}</a></li>
-  {% endfor %}
-  </ul>
+  <div class="references">
+    <h2 style="text-align: center;">Luodut lähteet:</h2>
+    <div class="columns">
+      <div class="column">
+        <h3>Luodut kirjat:</h3>
+        <ul class="ref-list">
+          {% for book in books %}
+          <li><a href="/reference/{{ book.type }}/{{ book.id }}">{{ book.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="column">
+        <h3>Luodut artikkelit:</h3>
+        <ul class="ref-list">
+          {% for article in articles %}
+          <li><a href="/reference/{{ article.type }}/{{ article.id }}">{{ article.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
 
-  <h3>Loudut artikkelit:</h3>
-  <ul>
-  {% for article in articles %}
-  <li><a href="/reference/{{ article.type }}/{{ article.id }}">{{ article.name }}</a></li>
-  {% endfor %}
-  </ul>
-
+<div class="footer">
+  <p>miniproggis</p>
+</div>
 </body>
 </html> 
