@@ -171,6 +171,30 @@ User Gets Warning When Adding Book Reference With Editor Name Containing Numbers
     Click Button  css=form[name='Kirja'] input[type='submit']
     Page Should Contain  Muokkaajan nimessä ei kuulu olla numeroita
 
+New Book Reference Form Retains Entered Values On Validation Error
+    [Documentation]  When a validation error occurs, the new book reference form retains the entered values.
+    Home Page Should Be Open
+    Click Link  Lisää Lähde
+    Create New Reference Page Should Be Open
+    Press Keys  id=reference_selector  Kirja  ENTER
+    Wait Until Page Contains  Kirjan nimi
+    Input Text  css=form[name='Kirja'] input[name='name']        Clean Code
+    Input Text  css=form[name='Kirja'] input[name='author']      Robert C. Martin1
+    Input Text  css=form[name='Kirja'] input[name='editor']      Robert C. Martin
+    Input Text  css=form[name='Kirja'] input[name='title']       Clean Code: A Handbook of Agile Software Craftsmanship
+    Input Text  css=form[name='Kirja'] input[name='publisher']   Addison-Wesley Professional
+    Input Text  css=form[name='Kirja'] input[name='year']        2008
+    Input Text  css=form[name='Kirja'] input[name='note']        Testikommentti
+    Click Button  css=form[name='Kirja'] input[type='submit']
+    Page Should Contain  Kirjoittajan nimessä ei kuulu olla numeroita
+    Textfield Value Should Be  css=form[name='Kirja'] input[name='name']        Clean Code
+    Textfield Value Should Be  css=form[name='Kirja'] input[name='author']      Robert C. Martin1
+    Textfield Value Should Be  css=form[name='Kirja'] input[name='editor']      Robert C. Martin
+    Textfield Value Should Be  css=form[name='Kirja'] input[name='title']       Clean Code: A Handbook of Agile Software Craftsmanship
+    Textfield Value Should Be  css=form[name='Kirja'] input[name='publisher']   Addison-Wesley Professional
+    Textfield Value Should Be  css=form[name='Kirja'] input[name='year']        2008
+    Textfield Value Should Be  css=form[name='Kirja'] input[name='note']        Testikommentti
+
 
 *** Keywords ***
 Create Book Reference And Go To Home Page
