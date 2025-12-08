@@ -28,3 +28,36 @@ def print_all_titles():
     titles = result.fetchall()
     for row in titles:
         print(row.title)
+
+def update_book(reference_id, name, author, title, year, editor, publisher, note):
+    sql = text("SELECT 1 FROM books WHERE id = :id")
+    result = db.session.execute(sql, {"id": reference_id})
+    if result.fetchone() is None:
+        raise Exception("Book reference with the given ID does not exist.")
+    
+    sql = text("UPDATE books SET name = :name, author = :author, title = :title, year = :year, editor = :editor, publisher = :publisher, note = :note WHERE id = :id")
+    db.session.execute(sql, {"id": reference_id,
+                             "name": name,
+                             "author": author,
+                             "title": title,
+                             "year": year,
+                             "editor": editor,
+                             "publisher": publisher,
+                             "note": note })
+    db.session.commit()
+
+def update_article(reference_id, name, author, title, year, journal, note):
+    sql = text("SELECT 1 FROM articles WHERE id = :id")
+    result = db.session.execute(sql, {"id": reference_id})
+    if result.fetchone() is None:
+        raise Exception("Article reference with the given ID does not exist.")
+    
+    sql = text("UPDATE articles SET name = :name, author = :author, title = :title, year = :year, journal = :journal, note = :note WHERE id = :id")
+    db.session.execute(sql, {"id": reference_id,
+                             "name": name,
+                             "author": author,
+                             "title": title,
+                             "year": year,
+                             "journal": journal,
+                             "note": note })
+    db.session.commit()

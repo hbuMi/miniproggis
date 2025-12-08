@@ -1,7 +1,7 @@
 from flask import redirect, request, render_template, flash, Response
 from sqlalchemy import text
 from util import validate_book, validate_article, create_bibtex
-from repositories.reference_repository import create_book, create_article
+from repositories.reference_repository import create_book, create_article, update_book, update_article
 from config import app, test_env, db
 from db_helper import reset_db
 
@@ -84,7 +84,46 @@ def article_creation():
         flash(str(error))
         return render_template('new_reference.html', article_name=name, article_author=author, article_title=title,
                                article_year=year, article_journal=journal, article_note=note, selected='Artikkeli')
-    
+
+@app.route('/reference/<string:ref_type>/<int:reference_id>/edit', methods=['GET', 'POST'])
+def edit_reference(ref_type, reference_id):
+    if request.method == 'POST':
+        print(request.form)
+        name = request.form.get('name')
+        author = request.form.get('author')
+        title = request.form.get('title')
+        year = request.form.get('year')
+        note = request.form.get('note')
+
+        try:
+            if ref_type == 'book':
+                editor = request.form.get('editor')
+                publisher = request.form.get('publisher')
+                validate_book(author, title, year, editor, publisher, note)
+                update_book(reference_id, name, author, title, year, editor, publisher, note)
+            elif ref_type == 'article':
+                journal = request.form.get('journal')
+                validate_article(author, title, journal, year, note)
+                update_article(reference_id, name, author, title, year, journal, note)
+            return redirect(f'/reference/{ref_type}/{reference_id}')
+        except Exception as error:
+            flash(str(error))
+            return redirect(f'/reference/{ref_type}/{reference_id}/edit')
+
+    elif request.method == 'GET':
+        if ref_type == 'book':
+            sql = text('SELECT name, author, title, year, editor, publisher, note FROM books WHERE id = :id')
+        elif ref_type == 'article':
+            sql = text('SELECT name, author, title, year, journal, note FROM articles WHERE id = :id')
+
+        query = db.session.execute(sql, {'id': reference_id})
+        reference = query.fetchone()
+        if not reference:
+            return redirect('/')
+
+        ref = ref_type
+        return render_template('edit_reference.html', reference=reference, ref=ref)
+
 @app.route('/download_bibtex')
 def download_bibtex():
     sql_books = text("SELECT * FROM books")
