@@ -112,9 +112,9 @@ def edit_reference(ref_type, reference_id):
 
     elif request.method == 'GET':
         if ref_type == 'book':
-            sql = text('SELECT name, author, title, year, editor, publisher, note FROM books WHERE id = :id')
+            sql = text('SELECT id, name, author, title, year, editor, publisher, note FROM books WHERE id = :id')
         elif ref_type == 'article':
-            sql = text('SELECT name, author, title, year, journal, note FROM articles WHERE id = :id')
+            sql = text('SELECT id, name, author, title, year, journal, note FROM articles WHERE id = :id')
 
         query = db.session.execute(sql, {'id': reference_id})
         reference = query.fetchone()

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <title>Muokkaa lähdettä</title>
+</head>
+<body>
+  <div class="header">
+    <h1>Muokkaa lähdettä</h1>
+  </div>
+
+  <div class="page-container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div class="flash error"><b>VIRHE!</b><br />
+        {% for message in messages %}
+          {{ message }}<br />
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endwith %}
+
+    <h3 style="text-align: center;">Muokkaa lähdettä:</h3>
+
+    {% if ref == 'book' %}
+      <form name="Kirja" action="/reference/{{ ref }}/{{ reference.id }}/edit" method="POST">
+        <p>
+          <label for="book-name">Lähteen nimi</label>
+          <input type="text" id="book-name" name="name" value="{{ reference.name }}"/>
+        </p>
+        <p>
+          <label for="book-author">Kirjoittaja</label>
+          <input type="text" id="book-author" name="author" value="{{ reference.author }}"/>
+        </p>
+        <p>
+          <label for="book-title">Kirjan nimi</label>
+          <input type="text" id="book-title" name="title" value="{{ reference.title }}"/>
+        </p>
+        <p>
+          <label for="book-year">Julkaisu vuosi</label>
+          <input type="number" id="book-year" name="year" value="{{ reference.year }}"/>
+        </p>
+        <p>
+          <label for="book-editor">Editoija</label>
+          <input type="text" id="book-editor" name="editor" value="{{ reference.editor }}"/>
+        </p>
+        <p>
+          <label for="book-publisher">Julkaisija</label>
+          <input type="text" id="book-publisher" name="publisher" value="{{ reference.publisher }}"/>
+        </p>
+        <p>
+          <label for="book-note">Muistiipano</label>
+          <input type="text" id="book-note" name="note" value="{{ reference.note }}"/>
+        </p>
+
+        <input type="submit" value="Tallenna muutokset" />
+      </form>
+
+    {% elif ref == 'article' %}
+      <form name="Artikkeli" action="/reference/{{ ref }}/{{ reference.id }}/edit" method="POST">
+        <p>
+          <label for="article-name">Lähteen nimi</label>
+          <input type="text" id="article-name" name="name" value="{{ reference.name }}"/>
+        </p>
+        <p>
+          <label for="article-author">Kirjoittaja</label>
+          <input type="text" id="article-author" name="author" value="{{ reference.author }}"/>
+        </p>
+        <p>
+          <label for="article-title">Artikkelin nimi</label>
+          <input type="text" id="article-title" name="title" value="{{ reference.title }}"/>
+        </p>
+        <p>
+          <label for="article-year">Julkaisu vuosi</label>
+          <input type="number" id="article-year" name="year" value="{{ reference.year }}"/>
+        </p>
+        <p>
+          <label for="article-journal">Julkaisu</label>
+          <input type="text" id="article-journal" name="journal" value="{{ reference.journal }}"/>
+        </p>
+        <p>
+          <label for="article-note">Muistiipano</label>
+          <input type="text" id="article-note" name="note" value="{{ reference.note }}"/>
+        </p>
+
+        <input type="submit" value="Tallenna muutokset" />
+      </form>
+    {% endif %}
+
+    <p style="text-align: center; margin-top: 12px;">
+      <a href="/" class="button">Etusivulle</a>
+    </p>
+    <p style="text-align: center;">
+      <a href="/reference/{{ ref }}/{{ reference.id }}" class="button">Takaisin lähteeseen</a>
+    </p>
+  </div>
+
+  <div class="footer">
+    <p>Siellä on projekti siellä ohtussa</p>
+  </div>
+</body>
+</html>

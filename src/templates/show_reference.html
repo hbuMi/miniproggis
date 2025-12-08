@@ -11,6 +11,9 @@
     <h1>{{ reference.name }}</h1> 
   </div>
   <div class="page-container">
+    <p style="text-align: center;">  
+      <a href="/reference/{{ ref }}/{{ reference.id }}/edit" class="button"> Muokkaa lähdettä</a>
+    </p>
     <table class="ref-table">
       <tr><td class="label">Otsikko</td><td class="value">{{ reference.title }}</td></tr>
       <tr><td class="label">Kirjoittaja</td><td class="value">{{ reference.author }}</td></tr>
@@ -47,13 +50,14 @@
   <div style="text-align: center; margin-top: 12px;">
     <button onclick="copyBibtex()" class="button">Kopioi BibTeX</button>
   </div>
+  
     <p style="text-align: center;">
       <a href="/" class="button">Etusivulle</a>
     </p>
   </div>
 
 <div class="footer">
-  <p>miniproggis</p>
+  <p>Siellä on projekti siellä ohtussa</p>
 </div>
 </body>
 </html>
