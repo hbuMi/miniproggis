@@ -124,6 +124,7 @@ def edit_reference(ref_type, reference_id):
         ref = ref_type
         return render_template('edit_reference.html', reference=reference, ref=ref)
 
+
 @app.route('/download_bibtex')
 def download_bibtex():
     sql_books = text("SELECT * FROM books")
@@ -164,18 +165,32 @@ def download_bibtex():
 @app.route('/search')
 def search():
     query = request.args.get('query')
+    mindate = request.args.get('mindate')
+    maxdate = request.args.get('maxdate')
+
+    if mindate == '':       # Jos aikaväliä ei anneta niin default aikaväli 0-2025
+        mindate = '0'
+    
+    if maxdate == '':
+        maxdate = '2025'
+
     results = []
     if query:
         sql = text("""
-        SELECT id, title, 'book' as type
+        SELECT id, title, year, 'book' as type
         FROM books
         WHERE title ILIKE :query
+        AND
+        year BETWEEN :mindate AND :maxdate
         UNION
-        SELECT id, title, 'article' as type
-        FROM articles WHERE title ILIKE :query
+        SELECT id, title, year, 'article' as type
+        FROM articles 
+        WHERE title ILIKE :query
+        AND
+        year BETWEEN :mindate AND :maxdate
         ORDER BY title
         """)
-        results = db.session.execute(sql, {"query": f"%{query}%"}).fetchall()
+        results = db.session.execute(sql, {"query": f"%{query}%", "mindate": mindate, "maxdate": maxdate}).fetchall()
     return render_template('search.html', query=query, results=results)
 
 @app.route('/reset_db')
