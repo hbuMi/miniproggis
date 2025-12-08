@@ -165,33 +165,32 @@ def download_bibtex():
 @app.route('/search')
 def search():
     query = request.args.get('query')
-    mindate = request.args.get('mindate')
-    maxdate = request.args.get('maxdate')
-
-    if mindate == '':       # Jos aikaväliä ei anneta niin default aikaväli 0-2025
-        mindate = '0'
-    
-    if maxdate == '':
-        maxdate = '2025'
+    mindate = request.args.get('mindate') or 0      # vuodet asetetaan min ja max arvoiksi jos ei ole syötettä
+    maxdate = request.args.get('maxdate') or 2025
+    author = request.args.get('author')
 
     results = []
-    if query:
+    if query or author or mindate or maxdate:
         sql = text("""
-        SELECT id, title, year, 'book' as type
+        SELECT id, title, year, author, 'book' as type
         FROM books
         WHERE title ILIKE :query
         AND
-        year BETWEEN :mindate AND :maxdate
+        CASt(year AS integer) BETWEEN :mindate AND :maxdate
+        AND
+        author ILIKE :author
         UNION
-        SELECT id, title, year, 'article' as type
+        SELECT id, title, year, author, 'article' as type
         FROM articles 
         WHERE title ILIKE :query
         AND
-        year BETWEEN :mindate AND :maxdate
+        CASt(year AS integer) BETWEEN :mindate AND :maxdate
+        AND
+        author ILIKE :author
         ORDER BY title
         """)
-        results = db.session.execute(sql, {"query": f"%{query}%", "mindate": mindate, "maxdate": maxdate}).fetchall()
-    return render_template('search.html', query=query, results=results)
+        results = db.session.execute(sql, {"query": f"%{query}%", "mindate": mindate, "maxdate": maxdate, "author": f"%{author}%"}).fetchall()
+    return render_template('search.html', query=query, author=author, mindate=mindate, maxdate=maxdate, results=results)
 
 @app.route('/reset_db')
 def reset_database():

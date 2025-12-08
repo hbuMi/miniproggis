@@ -13,9 +13,9 @@
 
 <div class="page-container">
   <div class="references">
-  {% if query %}
+  {% if query or author or mindate or maxdate %}
     <hr />
-    <h2 style="text-align: center;">Tulokset haulla {{ query }}:</h2>
+    <h2 style="text-align: center;">Tulokset haulla {{ query or author }} vuosien {{ mindate }} - {{ maxdate }} välillä:</h2>
     
     <ul class="ref-list">
     {% for result in results %}
