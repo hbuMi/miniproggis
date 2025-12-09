@@ -4,7 +4,8 @@ from util import validate_book, validate_article, create_bibtex
 from repositories.reference_repository import create_book, create_article, update_book, update_article
 from config import app, test_env, db
 from db_helper import reset_db
-
+from doi import get_bibtex_from_doi
+from bibtex import parse_bibtex
 
 @app.route('/')
 def index():
@@ -84,6 +85,23 @@ def article_creation():
         flash(str(error))
         return render_template('new_reference.html', article_name=name, article_author=author, article_title=title,
                                article_year=year, article_journal=journal, article_note=note, selected='Artikkeli')
+
+@app.route('/fill_from_doi', methods=['POST'])
+def fill_from_doi():
+    doi = request.form.get('doi')
+    data = get_bibtex_from_doi(doi)
+    try:
+        data_dict = parse_bibtex(data)
+    except Exception as error:
+        flash(str(error))
+        return render_template('new_reference.html')
+
+    if data_dict["ENTRYTYPE"].lower() == "article":
+        return render_template('new_reference.html', article_author=data_dict["author"], article_title=data_dict["title"],
+                               article_year=data_dict["year"], article_journal=data_dict["journal"], selected='Artikkeli')
+
+    return render_template('new_reference.html', book_author=data_dict["author"], book_title=data_dict["title"],
+                            book_year=data_dict["year"], book_editor=data_dict["editor"], book_publisher=data_dict["publisher"], selected='Kirja')
 
 @app.route('/reference/<string:ref_type>/<int:reference_id>/edit', methods=['GET', 'POST'])
 def edit_reference(ref_type, reference_id):

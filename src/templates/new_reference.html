@@ -25,6 +25,7 @@
       </div>
       {% endif %}
     {% endwith %}
+
     <label for="reference_selector">Valitse lähdetyyppi:</label>
     <select id="reference_selector">
       <option value="_" {% if not selected %}selected disabled{% else %}disabled{% endif %}>Valitse</option>
@@ -96,6 +97,15 @@
         <input type="submit" value="Lisää Lähde" />
       </form>
     </div>
+
+    <h3 style="text-align: center;">Täytä kentät DOI tunnisteella:</h3>
+    <form name="DOI" action="/fill_from_doi" method="POST">
+      <p>
+        <label for="doi-tag">DOI tunnus:</label>
+        <input type="text" id="doi-tag" name="doi"/>
+      </p>
+      <input type="submit" value="Täytä kentät" />
+    </form>
 
     <script>
       const referenceSelect = document.getElementById("reference_selector"),
