@@ -141,7 +141,13 @@ def edit_reference(ref_type, reference_id):
 
         ref = ref_type
         return render_template('edit_reference.html', reference=reference, ref=ref)
-
+    
+@app.route('/delete_all_references')
+def delete_all_references():
+    db.session.execute(text("DELETE FROM books"))
+    db.session.execute(text("DELETE FROM articles"))
+    db.session.commit()
+    return redirect('/')
 
 @app.route('/download_bibtex')
 def download_bibtex():
