@@ -23,7 +23,7 @@ class TestUtilFunctions(unittest.TestCase):
             "  title      = \"Clean Code: A Handbook of Agile Software Craftsmanship\",\n"
             "  author     = \"Robert C. Martin\",\n"
             "  year       = \"2008\",\n"
-            "  editor  = \"Some Editor\",\n"
+            "  editor     = \"Some Editor\",\n"
             "  publisher  = \"Prentice Hall\",\n"
             "  note       = \"Must read for developers\"\n"
             "}"
@@ -47,7 +47,7 @@ class TestUtilFunctions(unittest.TestCase):
             "  title      = \"Attention Is All You Need\",\n"
             "  author     = \"Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin\",\n"
             "  year       = \"2017\",\n"
-            "  journal = \"Advances in Neural Information Processing Systems\",\n"
+            "  journal    = \"Advances in Neural Information Processing Systems\",\n"
             "  note       = \"Test article\"\n"
             "}"
         )
