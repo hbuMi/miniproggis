@@ -56,3 +56,33 @@ Koodikommentteja ei enää koettu yhtä tarpeellisiksi nyt kun projektilla on va
 
 ---
 ---
+
+## Sprint 3
+
+Edeltävän retrospektiivin kehitystoimenpiteet toteutuivat sprintin 3 aikana. Järjestimme retrospektiivin ja sprintin suunnittelun asiakastapaamisen jälkeisenä päivänä. Kaikki tiimin jäsenet kertoivat aktiivisesti omien taskiensa kehitystyön etenemisestä discordissa. Kokoonnuimme hyvissä ajoin ennen asiakastapaamista.
+
+Käytimme myös kolmannen sprintin retrospektiiviin Start, Stop, Continue, More of, Less of -tekniikkaa.
+
+### Start
+Esitettiin toivomus, että tiimi valmistautuisi hyvin demoa varten esimerkiksi demoa edeltävänä päivänä. Toiveena oli myös, että ohjelmiston kehitys aloitettaisiin aiempaa aikaisemmin ettei työ kasaantuisi liikaa sprintin loppupuolelle.
+
+### Stop
+Ei mainittuja asioita.
+
+### Continue
+Tiimin kommunikointiin oltiin tyytyväisiä ja sen toivottiin jatkuvan myös viimeisessä sprintissä. Asiakastapaaminen sujui jälleen kerran hyvin asiallisen valmistautumisen ansiosta.
+
+### More of
+Projektiin on lisätty lyhyessä ajassa paljon toiminnallisuuksia. Projektin rakenteessa ja ohjelmakoodissa on huomattu joitakin puutteita, joten tiimissä toivottiin lisää ylläpitotoimia koodin sisäisen laadun parantamiseksi. 
+
+### Less of
+Ei mainittuja asioita.
+
+
+## Kehitystoimenpiteet
+- Tiimin jäsenet sitoutuivat aloittamaan omien taskiensa työstämisen aikaisemmin verrattuna edeltäviin sprintteihin
+- Tiimi kokoontuu päivää ennen demotilaisuutta ollakseen hyvin valmistautunut
+- Viimeisessä sprintissä projektin sisäistä laatua pyritään parantamaan muun muassa refaktoroimalla ja jakamalla toiminnallisuuksia järkeviin moduuleihin
+- Aktiivista kommunikointia jatketaan
+
+
