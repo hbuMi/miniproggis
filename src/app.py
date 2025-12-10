@@ -1,6 +1,6 @@
 from flask import redirect, request, render_template, flash, Response
 from sqlalchemy import text
-from util import validate_book, validate_article, create_bibtex
+from util import validate_book, validate_article, create_bibtex, validate_doi_fields
 from repositories.reference_repository import create_book, create_article, update_book, update_article
 from config import app, test_env, db
 from db_helper import reset_db
@@ -97,11 +97,15 @@ def fill_from_doi():
         return render_template('new_reference.html')
 
     if data_dict["ENTRYTYPE"].lower() == "article":
-        return render_template('new_reference.html', article_author=data_dict["author"], article_title=data_dict["title"],
-                               article_year=data_dict["year"], article_journal=data_dict["journal"], selected='Artikkeli')
+        fields = ["author", "title", "year", "journal"]
+        filled = validate_doi_fields(data_dict, fields)
+        return render_template('new_reference.html', article_author=filled["author"], article_title=filled["title"],
+                               article_year=filled["year"], article_journal=filled["journal"], selected='Artikkeli')
 
-    return render_template('new_reference.html', book_author=data_dict["author"], book_title=data_dict["title"],
-                            book_year=data_dict["year"], book_editor=data_dict["editor"], book_publisher=data_dict["publisher"], selected='Kirja')
+    fields = ["author", "title", "year", "editor", "publisher"]
+    filled = validate_doi_fields(data_dict, fields)
+    return render_template('new_reference.html', book_author=filled["author"], book_title=filled["title"],
+                            book_year=filled["year"], book_editor=filled["editor"], book_publisher=filled["publisher"], selected='Kirja')
 
 @app.route('/reference/<string:ref_type>/<int:reference_id>/edit', methods=['GET', 'POST'])
 def edit_reference(ref_type, reference_id):
