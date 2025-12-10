@@ -282,3 +282,16 @@ input[type=submit]:hover {
   color: #000000;
   border: 1px solid #fffb00;
 }
+
+.bg {
+  background-image: url('/static/kissa.png');
+  min-height: 100vh;        /* fill viewport height */
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;       /* position behind content if needed */
+  top: 0;
+  left: 0;
+  z-index: -1;             /* send to back */
+}

@@ -293,3 +293,8 @@ def download_selected():
     
     bibtex_content = '\n\n'.join(bibtex_entries)
     return Response(bibtex_content, mimetype='text/plain', headers={"Content-Disposition": "attachment;filename=references.bib"})
+
+@app.route('/miniprojekti_siella_ohtussa', methods=['GET', 'POST'])
+def projekti():
+    return render_template("miniprojekti_siella_ohtussa.html")
+    
