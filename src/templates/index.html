@@ -11,36 +11,36 @@
   </div>
   <div class="toolbar">
     <p>
-      <a href="/delete_all_references" class="button" onclick="return confirm('Haluatko varmasti poistaa kaikki lähteet?')">Poista kaikki lähteet</a>
-    </p>
-    <p>
       <a href="/new_reference" class="button">Lisää Lähde</a>
     </p>
     <form action="/search" method="get" class="search-form">
-    <p>
-      Hae lähdettä:
-      {% if query %}
-      <input type="text" name="query" value="{{ query }}" />
-      {% else %}
-      <input type="text" name="query" />
-      {% endif %}
-    </p>
-    <p>
-      Aikaväliltä:
-      <input type="number" id="mindate" name="mindate" min="0" max="2025" />
-      <input type="number" id="maxdate" name="maxdate" min="0" max="2025" />
-    </p>
-    <p>
-      Kirjoittajan nimi:
-      <input type="text" id="author" name="author" />
-    </p>
-    <Button type="submit" class="button">Hae</Button>
-  </form>
-    <p>
-      <a href="/download_bibtex" class="button">Lataa lähteet BibTeX-muodossa</a>
-      <a href="#" class="button" onclick="deleteSelected(); return false;">Poista valitut</a>
-    </p>
-     </div>
+
+        <div class="search-row">
+          Hae lähdettä:
+          {% if query %}
+          <input type="text" name="query" value="{{ query }}" />
+          {% else %}
+          <input type="text" name="query" />
+          {% endif %}
+
+          <Button type="submit" class="button">Hae</Button>
+        </div>
+
+        <div class="search-row">
+          <div class="date-range">  
+            Aikaväliltä:
+            <input type="number" id="mindate" name="mindate" min="0" max="2025" />
+            <span>–</span>
+            <input type="number" id="maxdate" name="maxdate" min="0" max="2025" />
+          </div>
+
+          <div class="author">
+            Kirjoittajan nimellä:
+            <input type="text" id="author" name="author" />
+          </div>
+        </div>
+    </form>
+  </div>
 
   <div class="references">
     <h2 style="text-align: center;">Luodut lähteet:</h2>
@@ -65,8 +65,11 @@
     <form id="deleteForm" method="post" action="/delete_selected" style="display:none;"></form>
     <form id="downloadForm" method="post" action="/download_selected" style="display:none;"></form>
     <p style="text-align: center;">
-      <button class="button" onclick="deleteSelected(); return false;">Poista valitut</button>
       <button class="button" onclick="downloadSelected(); return false;">Lataa valitut</button>
+      <button class="button" onclick="deleteSelected(); return false;">Poista valitut</button>
+    </p>
+    <p style="text-align: center;">
+      <button class="button" onClick="toggleAll(); return false;">Valitse kaikki</button>
     </p>
   </div>
 <script>
@@ -107,6 +110,16 @@ function downloadSelected() {
     form.appendChild(input);
   });
   form.submit();
+}
+
+let allChecked = false;
+
+function toggleAll() {
+  var checkboxes = document.querySelectorAll('input[type=checkbox][name=selected]');
+  allChecked = !allChecked;
+  checkboxes.forEach(function(cb) {
+    cb.checked = allChecked
+  });   
 }
 </script>
 <div class="footer">

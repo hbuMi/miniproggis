@@ -97,14 +97,52 @@ button { font: inherit; }
 .search-form {
   display: flex;
   align-items: center;
+  flex-direction: column;
   gap: 8px;
   margin: 0;
+  width: 100%;
+  max-width: 700px;
 }
 
-.search-form input[type="text"] {
+.search-form .search-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.search-form input[type="text"],
+.search-form input[type="number"] {
   padding: 8px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
+}
+
+.search-form .date-range {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.search-form .date-range input {
+  width: 80px;
+  max-width: 80px;
+}
+
+.search-form .author {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.search-form .author input {
+  width: 150px;
+  max-width: 150px;
 }
 
 .references {
