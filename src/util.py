@@ -42,6 +42,14 @@ def validate_article(author, title, journal, year,note):
     _validate_year(year)
     _validate_note(note)
 
+def validate_doi_fields(data, fields):
+    for field in fields:
+        try:
+            data[field]
+        except KeyError:
+            data[field] = ""
+    return data
+
 def _validate_year(year):
     # Testi onko vuosi luku
     try:
