@@ -38,6 +38,7 @@
   </form>
     <p>
       <a href="/download_bibtex" class="button">Lataa lähteet BibTeX-muodossa</a>
+      <a href="#" class="button" onclick="deleteSelected(); return false;">Poista valitut</a>
     </p>
      </div>
 
@@ -48,7 +49,7 @@
         <h3>Luodut kirjat:</h3>
         <ul class="ref-list">
           {% for book in books %}
-          <li><a href="/reference/{{ book.type }}/{{ book.id }}">{{ book.name }}</a></li>
+          <li><input type="checkbox" name="selected" value="book:{{ book.id }}" style="margin-right: 5px;"> <a href="/reference/{{ book.type }}/{{ book.id }}">{{ book.name }}</a></li>
           {% endfor %}
         </ul>
       </div>
@@ -56,13 +57,58 @@
         <h3>Luodut artikkelit:</h3>
         <ul class="ref-list">
           {% for article in articles %}
-          <li><a href="/reference/{{ article.type }}/{{ article.id }}">{{ article.name }}</a></li>
+          <li><input type="checkbox" name="selected" value="article:{{ article.id }}" style="margin-right: 5px;"> <a href="/reference/{{ article.type }}/{{ article.id }}">{{ article.name }}</a></li>
           {% endfor %}
         </ul>
       </div>
     </div>
+    <form id="deleteForm" method="post" action="/delete_selected" style="display:none;"></form>
+    <form id="downloadForm" method="post" action="/download_selected" style="display:none;"></form>
+    <p style="text-align: center;">
+      <button class="button" onclick="deleteSelected(); return false;">Poista valitut</button>
+      <button class="button" onclick="downloadSelected(); return false;">Lataa valitut</button>
+    </p>
   </div>
+<script>
+function deleteSelected() {
+  var checked = document.querySelectorAll('input[type=checkbox][name=selected]:checked');
+  if (checked.length === 0) {
+    alert('Valitse vähintään yksi lähde.');
+    return;
+  }
+  if (!confirm('Haluatko varmasti poistaa valitut lähteet?')) return;
+  
+  var form = document.getElementById('deleteForm');
+  form.innerHTML = '';
+  checked.forEach(function(cb) {
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'selected';
+    input.value = cb.value;
+    form.appendChild(input);
+  });
+  form.submit();
+}
 
+function downloadSelected() {
+  var checked = document.querySelectorAll('input[type=checkbox][name=selected]:checked');
+  if (checked.length === 0) {
+    alert('Valitse vähintään yksi lähde.');
+    return;
+  }
+  
+  var form = document.getElementById('downloadForm');
+  form.innerHTML = '';
+  checked.forEach(function(cb) {
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'selected';
+    input.value = cb.value;
+    form.appendChild(input);
+  });
+  form.submit();
+}
+</script>
 <div class="footer">
   <p>Siellä on projekti siellä ohtussa</p>
 </div>

@@ -10,11 +10,11 @@ def create_bibtex(reference, ref_type="article"):
     output.append(f"  year       = \"{reference.year}\",")
 
     if ref_type == "article":
-        output.append(f"  journal = \"{reference.journal}\",")
+        output.append(f"  journal    = \"{reference.journal}\",")
     
     if ref_type == "book":
         if getattr(reference, "editor"):
-            output.append(f"  editor  = \"{reference.editor}\",")
+            output.append(f"  editor     = \"{reference.editor}\",")
         if getattr(reference, "publisher"):
             output.append(f"  publisher  = \"{reference.publisher}\",")
 

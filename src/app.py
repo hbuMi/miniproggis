@@ -221,3 +221,75 @@ def reset_database():
     if test_env:
         reset_db()
     return redirect('/')
+
+@app.route('/delete_selected', methods=['POST'])
+def delete_selected():
+    """Delete selected articles and books."""
+    selected = request.form.getlist('selected')
+    
+    if not selected:
+        flash('Valitse vähintään yksi lähde.')
+        return redirect('/')
+    
+    for item in selected:
+        try:
+            typ, item_id = item.split(':')
+        except ValueError:
+            continue
+        if typ == 'book':
+            db.session.execute(text('DELETE FROM books WHERE id = :id'), {'id': item_id})
+        elif typ == 'article':
+            db.session.execute(text('DELETE FROM articles WHERE id = :id'), {'id': item_id})
+    
+    db.session.commit()
+    return redirect('/')
+
+@app.route('/download_selected', methods=['POST'])
+def download_selected():
+    selected = request.form.getlist('selected')
+
+    if not selected:
+        flash('Valitse vähintään yksi lähde.')
+        return redirect('/')
+    
+    bibtex_entries = []
+    
+    for item in selected:
+        try:
+            typ, item_id = item.split(':')
+        except ValueError:
+            continue
+        
+        if typ == 'book':
+            sql = text('SELECT * FROM books WHERE id = :id')
+            query = db.session.execute(sql, {'id': item_id})
+            book = query.fetchone()
+            if book:
+                book_ref = type('obj', (object,), {
+                    'name': book[1],
+                    'title': book[2],
+                    'author': book[3],
+                    'year': book[4],
+                    'editor': book[5],
+                    'publisher': book[6],
+                    'note': book[7]
+                })()
+                bibtex_entries.append(create_bibtex(book_ref, 'book'))
+        
+        elif typ == 'article':
+            sql = text('SELECT * FROM articles WHERE id = :id')
+            query = db.session.execute(sql, {'id': item_id})
+            article = query.fetchone()
+            if article:
+                article_ref = type('obj', (object,), {
+                    'name': article[1],
+                    'author': article[2],
+                    'title': article[3],
+                    'journal': article[4],
+                    'year': article[5],
+                    'note': article[6]
+                })()
+                bibtex_entries.append(create_bibtex(article_ref, 'article'))
+    
+    bibtex_content = '\n\n'.join(bibtex_entries)
+    return Response(bibtex_content, mimetype='text/plain', headers={"Content-Disposition": "attachment;filename=references.bib"})
