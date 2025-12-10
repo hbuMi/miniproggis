@@ -26,7 +26,8 @@ CSS File Is Loaded On Home Page
 Home Page Contains BibTex Download Button
     [Documentation]  The home page contains a button to download references in BibTex format.
     Home Page Should Be Open
-    Page Should Contain Element  css=a[href="/download_bibtex"]
+    Page Should Contain Element  css=form[id=downloadForm]
+    Page Should Contain Button  Lataa valitut
 
 Downloaded BibTex Contains All Created References
     [Documentation]  The downloaded BibTex file contains all of the created references.
