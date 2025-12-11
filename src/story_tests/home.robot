@@ -29,7 +29,7 @@ Home Page Contains BibTex Download Button
     Page Should Contain Element  css=form[id=downloadForm]
     Page Should Contain Button  Lataa valitut
 
-Downloaded BibTex Contains All Created References
+Download All BibTex File Contains All Created References
     [Documentation]  The downloaded BibTex file contains all of the created references.
     Create Two References And Go To Home Page
     Home Page Should Be Open
@@ -50,6 +50,35 @@ Downloaded BibTex Contains All Created References
     Should Match Regexp  ${bibtex}  (?s).*publisher\\s*=\\s*"Addison-Wesley Professional".*
     Should Match Regexp  ${bibtex}  (?s).*year\\s*=\\s*"1999".*
     Should Match Regexp  ${bibtex}  (?s).*note\\s*=\\s*"Testimuistiinpanot".*
+
+Download Selected BibTex File Only Contains Selected References
+    [Documentation]  The downloaded BibTex file contains only the selected references.
+    Create Two References And Go To Home Page
+    Home Page Should Be Open
+    ${checkbox}=  Set Variable  xpath=//a[contains(text(), 'attention2017')]/preceding-sibling::input[@type='checkbox']
+    ${checkbox_value}=  Get Element Attribute  ${checkbox}  value
+    ${data}=  Create Dictionary  selected=${checkbox_value}
+    Create Session  bibtex_session  ${HOME_URL}
+    ${response}=  POST On Session  bibtex_session  /download_selected  data=${data}
+    ${bibtex}=  Convert To String  ${response.content}
+
+    Should Contain  ${bibtex}  @article{attention2017,
+    Should Match Regexp  ${bibtex}  (?s).*author\\s*=\\s*"Ashish.*
+    Should Match Regexp  ${bibtex}  (?s).*title\\s*=\\s*"Attention Is All You Need".*
+    Should Match Regexp  ${bibtex}  (?s).*journal\\s*=\\s*"Advances in Neural Information Processing Systems".*
+    Should Match Regexp  ${bibtex}  (?s).*year\\s*=\\s*"2017".*
+    Should Match Regexp  ${bibtex}  (?s).*note\\s*=\\s*"Testiartikkeli".*
+
+    Should Not Contain  ${bibtex}  @book{Refactoring,
+
+Download Selected BibTex Should Show Alert If No References Selected
+    [Documentation]  Downloading selected BibTex references shows an alert if no references are selected.
+    Create Two References And Go To Home Page
+    Home Page Should Be Open
+    Click Button  Lataa valitut
+    ${alert_text}=  Handle Alert  action=ACCEPT  timeout=5 s
+    Should Be Equal As Strings  ${alert_text}  Valitse vähintään yksi lähde.
+    Home Page Should Be Open
 
 
 *** Keywords ***
