@@ -23,12 +23,6 @@ def create_article(name, author, title, year, journal, note):
                              "note": note })
     db.session.commit()
 
-def print_all_titles():
-    result = db.session.execute(text("SELECT title FROM articles"))
-    titles = result.fetchall()
-    for row in titles:
-        print(row.title)
-
 def update_book(reference_id, name, author, title, year, editor, publisher, note):
     sql = text("SELECT 1 FROM books WHERE id = :id")
     result = db.session.execute(sql, {"id": reference_id})
@@ -60,4 +54,57 @@ def update_article(reference_id, name, author, title, year, journal, note):
                              "year": year,
                              "journal": journal,
                              "note": note })
+    db.session.commit()
+
+def get_all_books():
+    sql = text("SELECT *, 'book' as type FROM books")
+    result = db.session.execute(sql)
+    return result.fetchall()
+
+def get_all_articles():
+    sql = text("SELECT *, 'article' as type FROM articles")
+    result = db.session.execute(sql)
+    return result.fetchall()
+
+def get_reference(ref_type, id):
+    if ref_type == 'book':
+        sql = text('SELECT * FROM books WHERE id = :id')
+    elif ref_type == 'article':
+        sql = text('SELECT * FROM articles WHERE id = :id')
+
+    query = db.session.execute(sql, {'id': id})
+    return query.fetchone()
+
+def delete_references():
+    db.session.execute(text("DELETE FROM books"))
+    db.session.execute(text("DELETE FROM articles"))
+    db.session.commit()
+
+def search_references(query, mindate, maxdate, author):
+        sql = text("""
+        SELECT id, title, year, author, 'book' as type
+        FROM books
+        WHERE title ILIKE :query
+        AND
+        CASt(year AS integer) BETWEEN :mindate AND :maxdate
+        AND
+        author ILIKE :author
+        UNION
+        SELECT id, title, year, author, 'article' as type
+        FROM articles
+        WHERE title ILIKE :query
+        AND
+        CASt(year AS integer) BETWEEN :mindate AND :maxdate
+        AND
+        author ILIKE :author
+        ORDER BY title
+        """)
+        result = db.session.execute(sql, {"query": f"%{query}%", "mindate": mindate, "maxdate": maxdate, "author": f"%{author}%"})
+        return result.fetchall()
+
+def delete_reference(ref_type, id):
+    if ref_type == 'book':
+        db.session.execute(text('DELETE FROM books WHERE id = :id'), {'id': id})
+    elif ref_type == 'article':
+        db.session.execute(text('DELETE FROM articles WHERE id = :id'), {'id': id})
     db.session.commit()

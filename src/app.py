@@ -2,20 +2,17 @@ from flask import redirect, request, render_template, flash, Response
 from sqlalchemy import text
 from util import validate_book, validate_article, create_bibtex, validate_doi_fields
 from repositories.reference_repository import create_book, create_article, update_book, update_article
-from config import app, test_env, db
+from repositories.reference_repository import get_all_articles, get_all_books, get_reference, delete_references
+from repositories.reference_repository import search_references, delete_reference
+from config import app, test_env
 from db_helper import reset_db
 from doi import get_bibtex_from_doi
 from bibtex import parse_bibtex
 
 @app.route('/')
 def index():
-    sql_books = text("SELECT *, 'book' as type FROM books")
-    query_books = db.session.execute(sql_books)
-    items_books = query_books.fetchall()
-
-    sql_articles = text("SELECT *, 'article' as type FROM articles")
-    query_articles = db.session.execute(sql_articles)
-    items_articles = query_articles.fetchall()
+    items_books = get_all_books()
+    items_articles = get_all_articles()
 
     books = []
     for item in items_books:
@@ -38,14 +35,7 @@ def new():
 
 @app.route('/reference/<string:ref_type>/<int:reference_id>')
 def show_reference(ref_type, reference_id):
-    if ref_type == 'book':
-        sql = text('SELECT * FROM books WHERE id = :id')
-    elif ref_type == 'article':
-        sql = text('SELECT * FROM articles WHERE id = :id')
-
-    query = db.session.execute(sql, {'id': reference_id})
-    reference = query.fetchone()
-
+    reference = get_reference(ref_type, reference_id)
     ref = ref_type
     return render_template('show_reference.html', reference=reference, ref=ref, create_bibtex=create_bibtex) if reference else redirect('/')
 
@@ -132,13 +122,7 @@ def edit_reference(ref_type, reference_id):
             return redirect(f'/reference/{ref_type}/{reference_id}/edit')
 
     elif request.method == 'GET':
-        if ref_type == 'book':
-            sql = text('SELECT id, name, author, title, year, editor, publisher, note FROM books WHERE id = :id')
-        elif ref_type == 'article':
-            sql = text('SELECT id, name, author, title, year, journal, note FROM articles WHERE id = :id')
-
-        query = db.session.execute(sql, {'id': reference_id})
-        reference = query.fetchone()
+        reference = get_reference(ref_type, reference_id)
         if not reference:
             return redirect('/')
 
@@ -147,19 +131,13 @@ def edit_reference(ref_type, reference_id):
     
 @app.route('/delete_all_references')
 def delete_all_references():
-    db.session.execute(text("DELETE FROM books"))
-    db.session.execute(text("DELETE FROM articles"))
-    db.session.commit()
+    delete_references()
     return redirect('/')
 
 @app.route('/download_bibtex')
 def download_bibtex():
-    sql_books = text("SELECT * FROM books")
-    books = db.session.execute(sql_books).fetchall()
-
-    sql_articles = text("SELECT * FROM articles")
-    articles = db.session.execute(sql_articles).fetchall()
-
+    books = get_all_books()
+    articles = get_all_articles()
     bibtex_entries = []
 
     for book in books:
@@ -198,25 +176,8 @@ def search():
 
     results = []
     if query or author or mindate or maxdate:
-        sql = text("""
-        SELECT id, title, year, author, 'book' as type
-        FROM books
-        WHERE title ILIKE :query
-        AND
-        CASt(year AS integer) BETWEEN :mindate AND :maxdate
-        AND
-        author ILIKE :author
-        UNION
-        SELECT id, title, year, author, 'article' as type
-        FROM articles 
-        WHERE title ILIKE :query
-        AND
-        CASt(year AS integer) BETWEEN :mindate AND :maxdate
-        AND
-        author ILIKE :author
-        ORDER BY title
-        """)
-        results = db.session.execute(sql, {"query": f"%{query}%", "mindate": mindate, "maxdate": maxdate, "author": f"%{author}%"}).fetchall()
+        results = search_references(query, mindate, maxdate, author)
+
     return render_template('search.html', query=query, author=author, mindate=mindate, maxdate=maxdate, results=results)
 
 @app.route('/reset_db')
@@ -237,14 +198,10 @@ def delete_selected():
     for item in selected:
         try:
             typ, item_id = item.split(':')
+            delete_reference(typ, item_id)
         except ValueError:
             continue
-        if typ == 'book':
-            db.session.execute(text('DELETE FROM books WHERE id = :id'), {'id': item_id})
-        elif typ == 'article':
-            db.session.execute(text('DELETE FROM articles WHERE id = :id'), {'id': item_id})
-    
-    db.session.commit()
+
     return redirect('/')
 
 @app.route('/download_selected', methods=['POST'])
@@ -264,9 +221,7 @@ def download_selected():
             continue
         
         if typ == 'book':
-            sql = text('SELECT * FROM books WHERE id = :id')
-            query = db.session.execute(sql, {'id': item_id})
-            book = query.fetchone()
+            book = get_reference(typ, item_id)
             if book:
                 book_ref = type('obj', (object,), {
                     'name': book[1],
@@ -280,9 +235,7 @@ def download_selected():
                 bibtex_entries.append(create_bibtex(book_ref, 'book'))
         
         elif typ == 'article':
-            sql = text('SELECT * FROM articles WHERE id = :id')
-            query = db.session.execute(sql, {'id': item_id})
-            article = query.fetchone()
+            article = get_reference(typ, item_id)
             if article:
                 article_ref = type('obj', (object,), {
                     'name': article[1],
