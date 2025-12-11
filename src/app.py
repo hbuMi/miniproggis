@@ -110,7 +110,6 @@ def fill_from_doi():
 @app.route('/reference/<string:ref_type>/<int:reference_id>/edit', methods=['GET', 'POST'])
 def edit_reference(ref_type, reference_id):
     if request.method == 'POST':
-        print(request.form)
         name = request.form.get('name')
         author = request.form.get('author')
         title = request.form.get('title')

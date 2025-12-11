@@ -22,37 +22,6 @@ User Can Add Article Reference
     Home Page Should Be Open
     Page Should Contain  attention2017
 
-User Cannot Add Article Reference With Non-numeric Year
-    Home Page Should Be Open
-    Click Link  Lisää Lähde
-    Create New Reference Page Should Be Open
-    Press Keys  id=reference_selector  Artikkeli  ENTER
-    Wait Until Page Contains  Artikkelin nimi
-    Input Text  css=form[name='Artikkeli'] input[name='name']        attention2017
-    Input Text  css=form[name='Artikkeli'] input[name='author']      Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin
-    Input Text  css=form[name='Artikkeli'] input[name='title']       Attention Is All You Need
-    Input Text  css=form[name='Artikkeli'] input[name='journal']     Advances in Neural Information Processing Systems
-    Input Text  css=form[name='Artikkeli'] input[name='year']        twentyseventeen
-    Input Text  css=form[name='Artikkeli'] input[name='note']        Testiartikkeli
-    Click Button  css=form[name='Artikkeli'] input[type='submit']
-    Create New Reference Page Should Be Open
-
-User Cannot Add Article Reference With Too Short Title
-    [Documentation]  Adding an article reference with a too short title shows a warning.
-    Home Page Should Be Open
-    Click Link  Lisää Lähde
-    Create New Reference Page Should Be Open
-    Press Keys  id=reference_selector  Artikkeli  ENTER
-    Wait Until Page Contains  Artikkelin nimi
-    Input Text  css=form[name='Artikkeli'] input[name='name']        attention2017
-    Input Text  css=form[name='Artikkeli'] input[name='author']      Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin
-    Input Text  css=form[name='Artikkeli'] input[name='title']       AI
-    Input Text  css=form[name='Artikkeli'] input[name='journal']     Advances in Neural Information Processing Systems
-    Input Text  css=form[name='Artikkeli'] input[name='year']        2017
-    Input Text  css=form[name='Artikkeli'] input[name='note']        Testiartikkeli
-    Click Button  css=form[name='Artikkeli'] input[type='submit']
-    Page Should Contain  Liian lyhyt nimi
-
 User Can View Article Reference Details
     Create Article Reference And Go To Home Page
     Home Page Should Be Open
@@ -65,70 +34,6 @@ User Can View Article Reference Details
     Page Should Contain  Advances in Neural Information Processing Systems
     Page Should Contain  2017
     Page Should Contain  Testiartikkeli
-
-User Gets Warning When Adding Article Reference With Too Short Author
-    [Documentation]  Adding an article reference without an author shows a warning.
-    Home Page Should Be Open
-    Click Link  Lisää Lähde
-    Create New Reference Page Should Be Open
-    Press Keys  id=reference_selector  Artikkeli  ENTER
-    Wait Until Page Contains  Artikkelin nimi
-    Input Text  css=form[name='Artikkeli'] input[name='name']        attention2017
-    Input Text  css=form[name='Artikkeli'] input[name='title']       Attention Is All You Need
-    Input Text  css=form[name='Artikkeli'] input[name='journal']     Advances in Neural Information Processing Systems
-    Input Text  css=form[name='Artikkeli'] input[name='year']        2017
-    Input Text  css=form[name='Artikkeli'] input[name='note']        Testiartikkeli
-    Click Button  css=form[name='Artikkeli'] input[type='submit']
-    Page Should Contain  Liian lyhyt kirjoittaja
-
-User Gets Warning When Adding Article Reference With Author Name Containing Numbers
-    [Documentation]  Adding an article reference with numbers in the author name shows a warning.
-    Home Page Should Be Open
-    Click Link  Lisää Lähde
-    Create New Reference Page Should Be Open
-    Press Keys  id=reference_selector  Artikkeli  ENTER
-    Wait Until Page Contains  Artikkelin nimi
-    Input Text  css=form[name='Artikkeli'] input[name='name']        attention2017
-    Input Text  css=form[name='Artikkeli'] input[name='author']      Ashish Vaswani1, Noam Shazeer2
-    Input Text  css=form[name='Artikkeli'] input[name='title']       Attention Is All You Need
-    Input Text  css=form[name='Artikkeli'] input[name='journal']     Advances in Neural Information Processing Systems
-    Input Text  css=form[name='Artikkeli'] input[name='year']        2017
-    Input Text  css=form[name='Artikkeli'] input[name='note']        Testiartikkeli
-    Click Button  css=form[name='Artikkeli'] input[type='submit']
-    Page Should Contain  Kirjoittajan nimessä ei kuulu olla numeroita
-
-User Gets Warning When Adding Article Reference With Too Short Journal
-    [Documentation]  Adding an article reference with a too short journal shows a warning.
-    Home Page Should Be Open
-    Click Link  Lisää Lähde
-    Create New Reference Page Should Be Open
-    Press Keys  id=reference_selector  Artikkeli  ENTER
-    Wait Until Page Contains  Artikkelin nimi
-    Input Text  css=form[name='Artikkeli'] input[name='name']        attention2017
-    Input Text  css=form[name='Artikkeli'] input[name='author']      Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin
-    Input Text  css=form[name='Artikkeli'] input[name='title']       Attention Is All You Need
-    Input Text  css=form[name='Artikkeli'] input[name='journal']     Advances in Neural Information Processing Systems
-    Input Text  css=form[name='Artikkeli'] input[name='year']        2017
-    Input Text  css=form[name='Artikkeli'] input[name='journal']     A
-    Input Text  css=form[name='Artikkeli'] input[name='note']        Testiartikkeli
-    Click Button  css=form[name='Artikkeli'] input[type='submit']
-    Page Should Contain  Liian lyhyt julkaisija
-
-User Gets Warning When Adding Article Reference With Journal Containing Numbers
-    [Documentation]  Adding an article reference with numbers in the journal shows a warning.
-    Home Page Should Be Open
-    Click Link  Lisää Lähde
-    Create New Reference Page Should Be Open
-    Press Keys  id=reference_selector  Artikkeli  ENTER
-    Wait Until Page Contains  Artikkelin nimi
-    Input Text  css=form[name='Artikkeli'] input[name='name']        attention2017
-    Input Text  css=form[name='Artikkeli'] input[name='author']      Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin
-    Input Text  css=form[name='Artikkeli'] input[name='title']       Attention Is All You Need
-    Input Text  css=form[name='Artikkeli'] input[name='journal']     Advances in Neural Information Processing Systems 2021
-    Input Text  css=form[name='Artikkeli'] input[name='year']        2017
-    Input Text  css=form[name='Artikkeli'] input[name='note']        Testiartikkeli
-    Click Button  css=form[name='Artikkeli'] input[type='submit']
-    Page Should Contain  Julkaisijan nimessä ei kuulu olla numeroita
 
 New Article Reference Form Retains Entered Values On Validation Error
     [Documentation]  When adding an article reference fails due to validation error, the form retains the entered values.
@@ -152,8 +57,25 @@ New Article Reference Form Retains Entered Values On Validation Error
     Textfield Value Should Be  css=form[name='Artikkeli'] input[name='year']        2017
     Textfield Value Should Be  css=form[name='Artikkeli'] input[name='note']        Testiartikkeli
 
+Create Article Reference With Invalid Input Data Shows Correct Validation Error Messages
+    [Documentation]  Test that submitting invalid article reference data shows the correct validation error messages.
+    [Template]    Validate Article Reference Create Form Errors
+    # Name           Author           Title            Journal             Year            Note            Expected Error
+    ${VALID_ANAME}  ${VALID_AAUTHOR}  ${VALID_ATITLE}  ${VALID_AJOURNAL}   twenty          ${VALID_ANOTE}  Vuoden oltava luku
+    ${VALID_ANAME}  ${VALID_AAUTHOR}  Ab               ${VALID_AJOURNAL}   ${VALID_AYEAR}  ${VALID_ANOTE}  Liian lyhyt nimi
+    ${VALID_ANAME}  As                ${VALID_ATITLE}  ${VALID_AJOURNAL}   ${VALID_AYEAR}  ${VALID_ANOTE}  Liian lyhyt kirjoittaja
+    ${VALID_ANAME}  Ashish Vaswani1   ${VALID_ATITLE}  ${VALID_AJOURNAL}   ${VALID_AYEAR}  ${VALID_ANOTE}  Kirjoittajan nimessä ei kuulu olla numeroita
+    ${VALID_ANAME}  ${VALID_AAUTHOR}  ${VALID_ATITLE}  A                   ${VALID_AYEAR}  ${VALID_ANOTE}  Liian lyhyt julkaisija
+
 
 *** Keywords ***
 Create Article Reference And Go To Home Page
     Create Article  attention2017  Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin  Attention Is All You Need  2017  Advances in Neural Information Processing Systems  Testiartikkeli
     Go To Home Page
+
+Validate Article Reference Create Form Errors
+    [Documentation]  Fills the form and asserts that the expected error appears
+    [Arguments]    ${name}  ${author}  ${title}  ${journal}  ${year}  ${note}  ${expected_error}
+    Go To Create New Article Reference Page
+    Submit Article Form With Data  ${name}  ${author}  ${title}  ${journal}  ${year}  ${note}
+    Page Should Contain    ${expected_error}
