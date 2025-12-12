@@ -149,6 +149,16 @@ Edit Book Reference With Invalid Data Shows Validation Error Messages
     ${VALID_BNAME}   ${VALID_BAUTHOR}  R                 ${VALID_BTITLE}  ${VALID_BPUBLISHER}  ${VALID_BYEAR}   ${VALID_BNOTE}  Liian lyhyt muokkaaja
     ${VALID_BNAME}   ${VALID_BAUTHOR}  Ed1               ${VALID_BTITLE}  ${VALID_BPUBLISHER}  ${VALID_BYEAR}   ${VALID_BNOTE}  Muokkaajan nimessä ei kuulu olla numeroita 
 
+Edit Article Reference With Invalid Data Shows Validation Error Messages
+    [Documentation]  Test that submitting invalid article reference data shows the correct validation error messages.
+    [Template]    Validate Article Reference Edit Form Errors
+    # Name           Author           Title            Journal             Year            Note            Expected Error
+    ${VALID_ANAME}  ${VALID_AAUTHOR}  ${VALID_ATITLE}  ${VALID_AJOURNAL}   twenty          ${VALID_ANOTE}  Vuoden oltava luku
+    ${VALID_ANAME}  ${VALID_AAUTHOR}  Ab               ${VALID_AJOURNAL}   ${VALID_AYEAR}  ${VALID_ANOTE}  Liian lyhyt nimi
+    ${VALID_ANAME}  As                ${VALID_ATITLE}  ${VALID_AJOURNAL}   ${VALID_AYEAR}  ${VALID_ANOTE}  Liian lyhyt kirjoittaja
+    ${VALID_ANAME}  Ashish Vaswani1   ${VALID_ATITLE}  ${VALID_AJOURNAL}   ${VALID_AYEAR}  ${VALID_ANOTE}  Kirjoittajan nimessä ei kuulu olla numeroita
+    ${VALID_ANAME}  ${VALID_AAUTHOR}  ${VALID_ATITLE}  A                   ${VALID_AYEAR}  ${VALID_ANOTE}  Liian lyhyt julkaisija
+
 
 *** Keywords ***
 Create Book Reference And Go To Home Page
@@ -183,7 +193,7 @@ Validate Article Reference Edit Form Errors
     Wait Until Page Contains Element  xpath=//a[contains(text(),'Muokkaa lähdettä')]
     Click Link  Muokkaa lähdettä
     Title Should Be  Muokkaa lähdettä
-    
+
     Submit Article Form With Data  ${name}  ${author}  ${title}  ${journal}  ${year}  ${note}
     Page Should Contain    ${expected_error}
 
