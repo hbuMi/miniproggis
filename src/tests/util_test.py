@@ -1,6 +1,6 @@
 from types import SimpleNamespace
 import unittest
-from util import create_bibtex
+from util import create_bibtex, validate_doi_fields
 
 
 class TestUtilFunctions(unittest.TestCase):
@@ -54,3 +54,35 @@ class TestUtilFunctions(unittest.TestCase):
 
         actual_bibtex = create_bibtex(article, ref_type="article")
         self.assertEqual(expected_bibtex, actual_bibtex)
+
+    def test_validate_doi_fields_returns_all(self):
+        data = {
+            "ENTRYTYPE": "article",
+            "author": "Alpha Tester",
+            "title": "Sample Title",
+            "year": "2020",
+            "journal": "Journal of Testing"
+        }
+        fields = ["author", "title", "year", "journal"]
+
+        validated_data = validate_doi_fields(data, fields)
+
+        self.assertEqual(validated_data["author"], "Alpha Tester")
+        self.assertEqual(validated_data["title"], "Sample Title")
+        self.assertEqual(validated_data["year"], "2020")
+        self.assertEqual(validated_data["journal"], "Journal of Testing")
+
+    def test_validate_doi_fields_missing_replaced_empty_strings(self):
+        data = {
+            "ENTRYTYPE": "article",
+            "author": "Alpha Tester",
+            "title": "Sample Title"
+        }
+        fields = ["author", "title", "year", "journal"]
+
+        validated_data = validate_doi_fields(data, fields)
+
+        self.assertEqual(validated_data["author"], "Alpha Tester")
+        self.assertEqual(validated_data["title"], "Sample Title")
+        self.assertEqual(validated_data["year"], "")
+        self.assertEqual(validated_data["journal"], "")
