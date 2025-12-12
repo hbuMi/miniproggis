@@ -25,19 +25,19 @@
     {% if ref == 'book' %}
       <form name="Kirja" action="/reference/{{ ref }}/{{ reference.id }}/edit" method="POST">
         <p>
-          <label for="book-name">Lähteen nimi</label>
+          <label for="book-name">Lähteen nimi<span style="color: red;">*</span></label>
           <input type="text" id="book-name" name="name" value="{{ reference.name }}"/>
         </p>
         <p>
-          <label for="book-author">Kirjoittaja</label>
+          <label for="book-author">Kirjoittaja<span style="color: red;">*</span></label>
           <input type="text" id="book-author" name="author" value="{{ reference.author }}"/>
         </p>
         <p>
-          <label for="book-title">Kirjan nimi</label>
+          <label for="book-title">Kirjan nimi<span style="color: red;">*</span></label>
           <input type="text" id="book-title" name="title" value="{{ reference.title }}"/>
         </p>
         <p>
-          <label for="book-year">Julkaisu vuosi</label>
+          <label for="book-year">Julkaisu vuosi<span style="color: red;">*</span></label>
           <input type="number" id="book-year" name="year" value="{{ reference.year }}"/>
         </p>
         <p>
@@ -45,11 +45,11 @@
           <input type="text" id="book-editor" name="editor" value="{{ reference.editor }}"/>
         </p>
         <p>
-          <label for="book-publisher">Julkaisija</label>
+          <label for="book-publisher">Julkaisija<span style="color: red;">*</span></label>
           <input type="text" id="book-publisher" name="publisher" value="{{ reference.publisher }}"/>
         </p>
         <p>
-          <label for="book-note">Muistiipano</label>
+          <label for="book-note">Muistiipano<span style="color: red;">*</span></label>
           <input type="text" id="book-note" name="note" value="{{ reference.note }}"/>
         </p>
 
@@ -59,23 +59,23 @@
     {% elif ref == 'article' %}
       <form name="Artikkeli" action="/reference/{{ ref }}/{{ reference.id }}/edit" method="POST">
         <p>
-          <label for="article-name">Lähteen nimi</label>
+          <label for="article-name">Lähteen nimi<span style="color: red;">*</span></label>
           <input type="text" id="article-name" name="name" value="{{ reference.name }}"/>
         </p>
         <p>
-          <label for="article-author">Kirjoittaja</label>
+          <label for="article-author">Kirjoittaja<span style="color: red;">*</span></label>
           <input type="text" id="article-author" name="author" value="{{ reference.author }}"/>
         </p>
         <p>
-          <label for="article-title">Artikkelin nimi</label>
+          <label for="article-title">Artikkelin nimi<span style="color: red;">*</span></label>
           <input type="text" id="article-title" name="title" value="{{ reference.title }}"/>
         </p>
         <p>
-          <label for="article-year">Julkaisu vuosi</label>
+          <label for="article-year">Julkaisu vuosi<span style="color: red;">*</span></label>
           <input type="number" id="article-year" name="year" value="{{ reference.year }}"/>
         </p>
         <p>
-          <label for="article-journal">Julkaisu</label>
+          <label for="article-journal">Julkaisu<span style="color: red;">*</span></label>
           <input type="text" id="article-journal" name="journal" value="{{ reference.journal }}"/>
         </p>
         <p>
