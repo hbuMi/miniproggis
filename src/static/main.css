@@ -1,3 +1,5 @@
+/* Sivujen pohja */
+
 * {
   box-sizing: border-box;
 }
@@ -53,6 +55,18 @@ button { font: inherit; }
   100% { background-position: 0% 50%; }
 }
 
+.page-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 16px;
+  flex: 1 0 auto;
+}
+
+.page-container hr {
+  display: none;
+}
+
 .button {
   background-color: #07c400;
   border: none;
@@ -83,6 +97,8 @@ button { font: inherit; }
   flex: 1;
   padding: 10px;
 }
+
+/*Etusivun palkki, jossa lähteen lisäys ja haku*/
 
 .toolbar {
   display: flex;
@@ -145,6 +161,8 @@ button { font: inherit; }
   max-width: 150px;
 }
 
+/*Lähteiden järjestäminen*/
+
 .references {
   flex: 1 0 auto;
   padding: 16px;
@@ -179,6 +197,7 @@ button { font: inherit; }
   margin: 0.25rem 0;
 }
 
+/*Lomakkeiden pohja*/
 
 form {
   border-radius: 5px;
@@ -218,6 +237,8 @@ input[type=submit]:hover {
   background-color: #06b300;
 }
 
+/*Infolaatikko*/
+
 .tooltip {
   position: relative;
   display: inline-block;
@@ -241,17 +262,7 @@ input[type=submit]:hover {
   visibility: visible;
 }
 
-.page-container {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 16px;
-  flex: 1 0 auto;
-}
-
-.page-container hr {
-  display: none;
-}
+/* Taulukko show_reference.html */
 
 .ref-table {
   width: 100%;
@@ -293,6 +304,8 @@ input[type=submit]:hover {
   padding-left: 12px;
 }
 
+
+/*Error viesti*/
 .flash {
   margin: 8px 0;
   padding: 10px 12px;
@@ -306,15 +319,17 @@ input[type=submit]:hover {
   border: 1px solid #fffb00;
 }
 
+/*Easteregg sivu*/
+
 .bg {
   background-image: url('/static/kissa.png');
-  min-height: 100vh;        /* fill viewport height */
+  min-height: 100vh;
   width: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  position: absolute;       /* position behind content if needed */
+  position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;             /* send to back */
+  z-index: -1;
 }
