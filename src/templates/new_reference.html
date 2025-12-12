@@ -37,11 +37,11 @@
     <div id="all_references" class="f-{{ selected }}">
       <form name="Kirja" action="/create_book" method="POST">
         <p>
-          <label for="book-name">Lähteen nimi</label>
+          <label for="book-name">Lähteen nimi<span style="color: red;">*</span></label>
           <input type="text" id="book-name" name="name" value="{{ book_name }}"/>
         </p>
         <p>
-          <label for="book-author">Kirjoittaja</label>
+          <label for="book-author">Kirjoittaja<span style="color: red;">*</span></label>
           <input type="text" id="book-author" name="author" value="{{ book_author }}" />
         </p>
         <p>
@@ -49,15 +49,15 @@
           <input type="text" id="book-editor" name="editor" value="{{ book_editor }}"/>
         </p>
         <p>
-          <label for="book-title">Kirjan nimi</label>
+          <label for="book-title">Kirjan nimi<span style="color: red;">*</span></label>
           <input type="text" id="book-title" name="title" value="{{ book_title }}"/>
         </p>
         <p>
-          <label for="book-publisher">Julkaisija</label>
+          <label for="book-publisher">Julkaisija<span style="color: red;">*</span></label>
           <input type="text" id="book-publisher" name="publisher" value="{{ book_publisher }}"/>
         </p>
         <p>
-          <label for="book-year">Julkaisuvuosi</label>
+          <label for="book-year">Julkaisuvuosi<span style="color: red;">*</span></label>
           <input type="number" id="book-year" name="year" value="{{ book_year }}"/>
         </p>
         <p>
@@ -70,23 +70,23 @@
 
       <form name="Artikkeli" action="/create_article" method="POST">
         <p>
-          <label for="article-name">Lähteen nimi</label>
+          <label for="article-name">Lähteen nimi<span style="color: red;">*</span></label>
           <input type="text" id="article-name" name="name" value="{{ article_name }}"/>
         </p>
         <p>
-          <label for="article-author">Kirjoittaja</label>
+          <label for="article-author">Kirjoittaja<span style="color: red;">*</span></label>
           <input type="text" id="article-author" name="author" value="{{ article_author }}"/>
         </p>
         <p>
-          <label for="article-journal">Julkaisu</label>
+          <label for="article-journal">Julkaisu<span style="color: red;">*</span></label>
           <input type="text" id="article-journal" name="journal" value="{{ article_journal }}"/>
         </p>
         <p>
-          <label for="article-title">Artikkelin nimi</label>
+          <label for="article-title">Artikkelin nimi<span style="color: red;">*</span></label>
           <input type="text" id="article-title" name="title" value="{{ article_title }}"/>
         </p>
         <p>
-          <label for="article-year">Julkaisuvuosi</label>
+          <label for="article-year">Julkaisuvuosi<span style="color: red;">*</span></label>
           <input type="number" id="article-year" name="year" value="{{ article_year }}"/>
         </p>
         <p>
@@ -101,7 +101,11 @@
     <h3 style="text-align: center;">Täytä kentät DOI tunnisteella:</h3>
     <form name="DOI" action="/fill_from_doi" method="POST">
       <p>
-        <label for="doi-tag">DOI tunnus:</label>
+        <label for="doi-tag">DOI tunnus:
+          <span class="tooltip">ℹ️
+            <span class="tooltiptext">DOI tunnus haetaan osoitteesta dx.doi.org</span>
+          </span>
+        </label>
         <input type="text" id="doi-tag" name="doi"/>
       </p>
       <input type="submit" value="Täytä kentät" />
