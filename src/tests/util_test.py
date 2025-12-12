@@ -32,6 +32,28 @@ class TestUtilFunctions(unittest.TestCase):
         actual_bibtex = create_bibtex(book, ref_type="book")
         self.assertEqual(expected_bibtex, actual_bibtex)
 
+    def test_create_bibtex_book_without_optional_fields(self):
+        book = SimpleNamespace(
+            name="the_pragmatic_programmer",
+            author="Andrew Hunt, David Thomas",
+            title="The Pragmatic Programmer: Your Journey to Mastery",
+            year="1999",
+            editor="",
+            publisher="",
+            note=""
+        )
+
+        expected_bibtex = (
+            "@book{the_pragmatic_programmer,\n"
+            "  title      = \"The Pragmatic Programmer: Your Journey to Mastery\",\n"
+            "  author     = \"Andrew Hunt, David Thomas\",\n"
+            "  year       = \"1999\"\n"
+            "}"
+        )
+
+        actual_bibtex = create_bibtex(book, ref_type="book")
+        self.assertEqual(expected_bibtex, actual_bibtex)
+
     def test_create_bibtex_article(self):
         article = SimpleNamespace(
             name="attention2017",
@@ -49,6 +71,28 @@ class TestUtilFunctions(unittest.TestCase):
             "  year       = \"2017\",\n"
             "  journal    = \"Advances in Neural Information Processing Systems\",\n"
             "  note       = \"Test article\"\n"
+            "}"
+        )
+
+        actual_bibtex = create_bibtex(article, ref_type="article")
+        self.assertEqual(expected_bibtex, actual_bibtex)
+
+    def test_create_bibtex_article_without_optional_fields(self):
+        article = SimpleNamespace(
+            name="deep_learning2015",
+            author="Yann LeCun, Yoshua Bengio, Geoffrey Hinton",
+            title="Deep Learning",
+            year="2015",
+            journal="Nature",
+            note=""
+        )
+
+        expected_bibtex = (
+            "@article{deep_learning2015,\n"
+            "  title      = \"Deep Learning\",\n"
+            "  author     = \"Yann LeCun, Yoshua Bengio, Geoffrey Hinton\",\n"
+            "  year       = \"2015\",\n"
+            "  journal    = \"Nature\"\n"
             "}"
         )
 
